@@ -16,7 +16,7 @@ export default function StudentsListItem({student}) {
         // <Link href="/students/modal-profile/">
         <div className={'d-flex flex-col justify-content-between align-items-center w-100 p-2'}>
             <Link href={`/students/${student._id}`}
-                  className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1 text-sm'}>
+                  className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1 '}>
                 <div className={'d-flex flex-row align-items-center gap-2'}>
                     <p>{student.group}</p>
                     <p style={{fontSize: 20}}>
