@@ -15,7 +15,20 @@
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  font: 1em system-ui;
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  /*font-family: Arial, Helvetica, sans-serif;*/
+  /*padding: env(safe-area-inset-top, 20px) env(safe-area-inset-right, 20px)*/
+  /*env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px);*/
+  /*box-sizing: border-box;*/
+  /*overflow: hidden;*/
+}
+
+.container {
+  padding: 0 20px;
 }
