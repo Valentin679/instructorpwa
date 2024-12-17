@@ -29,6 +29,11 @@ body {
   /*overflow: hidden;*/
 }
 
+a {
+  text-decoration: none !important;
+  color: black !important;
+}
+
 .container {
   padding: 0 20px;
 }
