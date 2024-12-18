@@ -23,7 +23,7 @@ export default function StudentProfile() {
     } else {
         return (
             <div className={'d-flex flex-col h-100'}>
-                <div className={'d-flex flex-row gap-2 mb-2 p-1'}>
+                <div className={'d-flex flex-row gap-2 mb-2 p-1 overflow-y-scroll'}>
                     <Image src={profilePic} alt={''}
                            className={'w-25 h-100 object-cover'}/>
                     <div style={{flexDirection: 'column', gap: 10}}>
@@ -45,7 +45,7 @@ export default function StudentProfile() {
                     >Навыки
                     </button>
 
-                    <div className={isOpenGrades ? 'px-1 overflow-scroll' : 'h-0 overflow-y-hidden'}>
+                    <div className={isOpenGrades ? 'px-1' : 'h-0 overflow-y-hidden'}>
                         {
                             student.exercise.map((el, index) => {
                                 return (<Grades gradeIndex={index} id={studentId} key={el.slug} exercises={student.exercise} grade={el}/>)
