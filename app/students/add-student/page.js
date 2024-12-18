@@ -151,7 +151,7 @@ export default function AddStudent() {
   useEffect(() => {
   }, [status, instructor, firstName, lastName, surname]);
   return (
-      <div className={'d-flex flex-column gap-1 px-1 items-center'}>
+      <div className={'d-flex flex-column gap-2 px-1 items-center'}>
         <p>Введите данные ученика</p>
         {/*<TextInput onChangeText={(text)=>{setFirstName(text)}} placeholder={'Фамилия'}></TextInput>*/}
         <Input onChange={(e) => {
