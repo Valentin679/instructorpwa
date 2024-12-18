@@ -13,7 +13,7 @@ const selectList = [
 
 
 
-export default function Grades({id, grade, indexGrade}) {
+export default function Grades({id, grade, gradeIndex}) {
     console.log(id)
     console.log(grade)
     const [exercise, setExercise] = useState(grade.name)
@@ -44,7 +44,7 @@ export default function Grades({id, grade, indexGrade}) {
                 </Select>
             }
             {changed ? <div className={'ml-1'}><button onClick={()=>{
-                editStudentGrades(id, slug, level, indexGrade).then(r => console.log('good'))
+                editStudentGrades(id, slug, level, gradeIndex).then(r => console.log('good'))
             }}><TfiSave size={22} /></button></div> : null}
 
         </div>)
