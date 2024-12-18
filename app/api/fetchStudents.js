@@ -36,12 +36,12 @@ export const addStudent = async (data) => {
     }
 }
 
-export const editStudentGrades = async (id, slug, level, gradeIndex) => {
+export const editStudentGrades = async (id, slug, level, name gradeIndex) => {
     await fetch(`${instance.url}api/students/category/b/edit`, {
         method: 'PUT',
         //
         body: JSON.stringify({
-            id, slug, level, gradeIndex
+            id, slug, level, name, gradeIndex
         }),
         headers: {
             'Content-type': 'application/json; charset=utf-8'
