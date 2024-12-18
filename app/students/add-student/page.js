@@ -1,3 +1,4 @@
+'use client'
 import {Button, Input, Select} from "antd";
 import {useEffect, useState} from "react";
 import {addStudent} from "@/app/api/fetchStudents";
