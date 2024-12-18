@@ -27,7 +27,7 @@ export default function Grades({id, grade, gradeIndex}) {
     }, [level]);
     return (
         <div key={grade.slug} className={'d-flex flex-row, mb-1, gap-1 justify-content-between items-center'}>
-            <p key={grade.slug}>{exercise}</p>
+            <p className={'mb-0'} key={grade.slug}>{exercise}</p>
             {level === selectList[0].label ? <p style={{color: 'green'}}>{level}</p> :
                 <Select
                     id={grade.slug}
