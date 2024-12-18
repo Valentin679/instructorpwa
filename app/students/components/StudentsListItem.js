@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function StudentsListItem({student}) {
 
-    console.log(student)
+    // console.log(student)
     const [exercise, setExercise]= useState(student.exercise)
     const goodExerc = exercise?.filter(e => {
         return e.level === 'Полностью освоен'

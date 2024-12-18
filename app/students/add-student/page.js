@@ -28,6 +28,7 @@ const statuses = [
 ]
 
 const instructorsList = [
+  { value: 0, label: 'Не назначен'},
   {
     value: 1,
     label: 'Мезенин Валентин Андреевич',
@@ -145,7 +146,7 @@ export default function AddStudent() {
   const [surname, setSurname] = useState()
   const [phone, setPhone] = useState()
   const [group, setGroup] = useState()
-  const [instructor, setInstructor] = useState('')
+  const [instructor, setInstructor] = useState(instructorsList[0])
   const [status, setStatus] = useState(statuses[0])
   useEffect(() => {
   }, [status, instructor, firstName, lastName, surname]);
@@ -153,20 +154,20 @@ export default function AddStudent() {
       <div className={'d-flex flex-column gap-1 px-1 items-center'}>
         <p>Введите данные ученика</p>
         {/*<TextInput onChangeText={(text)=>{setFirstName(text)}} placeholder={'Фамилия'}></TextInput>*/}
-        <Input onChange={(text) => {
-          setFirstName(text)
+        <Input onChange={(e) => {
+          setFirstName(e.target.value)
         }} placeholder={'Фамилия'}></Input>
-        <Input onChange={(text) => {
-          setLastName(text)
+        <Input onChange={(e) => {
+          setLastName(e.target.value)
         }} placeholder={'Имя'}></Input>
-        <Input onChange={(text) => {
-          setSurname(text)
+        <Input onChange={(e) => {
+          setSurname(e.target.value)
         }} placeholder={'Отчество'}></Input>
-        <Input onChange={(text) => {
-          setPhone('+7' + text)
+        <Input onChange={(e) => {
+          setPhone('+7' + e.target.value)
         }} prefix={'+7'} minLength={10} maxLength={10} placeholder={'Номер телефона'}></Input>
-        <Input onChange={(text) => {
-          setGroup(text)
+        <Input onChange={(e) => {
+          setGroup(e.target.value)
         }} maxLength={2} placeholder={'Номер группы'}></Input>
 
         <Select options={statuses} defaultValue={status}
@@ -184,7 +185,7 @@ export default function AddStudent() {
                     setInstructor({ value, label: option.label})
                   }
                 }}/>
-        <Button onClick={() => {
+        <Button type={'primary'} onClick={() => {
           const data = {
             firstName,
             lastName,
