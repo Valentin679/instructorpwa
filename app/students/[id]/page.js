@@ -27,7 +27,7 @@ export default function StudentProfile() {
                     <Image src={profilePic} alt={''}
                            className={'w-25 h-100 object-cover'}/>
                     <div style={{flexDirection: 'column', gap: 10}}>
-                        <div className={'d-flex flex-row gap-0'}>
+                        <div className={'d-flex flex-row gap-1'}>
                             <p>{student.firstName}</p>
                             <p>{student.lastName}</p>
                             <p>{student.surname}</p>
@@ -45,7 +45,7 @@ export default function StudentProfile() {
                     >Навыки
                     </button>
 
-                    <div className={isOpenGrades ? 'h-100 p-1' : 'h-0 overflow-y-hidden'}>
+                    <div className={isOpenGrades ? 'h-100 px-1' : 'h-0 overflow-y-hidden'}>
                         {
                             student.exercise.map((el, index) => {
                                 return (<Grades gradeIndex={index} id={studentId} key={el.slug} exercises={student.exercise} grade={el}/>)
