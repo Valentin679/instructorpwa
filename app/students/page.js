@@ -16,7 +16,7 @@ export default function Students() {
       <StudentsListItem key={student._id} student={student} />
   ))
   return (
-      <div style={{minHeight: '100%', height: '1000px'}}>
+      <div className={'mh-100'}>
         {studentsList}
       </div>
   );

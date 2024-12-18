@@ -27,7 +27,7 @@ export default function StudentProfile() {
                     <Image src={profilePic} alt={''}
                            className={'w-25 h-100 object-cover'}/>
                     <div style={{flexDirection: 'column', gap: 10}}>
-                        <div className={'d-flex flex-col gap-0'}>
+                        <div className={'d-flex flex-row gap-0'}>
                             <p>{student.firstName}</p>
                             <p>{student.lastName}</p>
                             <p>{student.surname}</p>
