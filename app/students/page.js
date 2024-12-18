@@ -16,7 +16,7 @@ export default function Students() {
       <StudentsListItem key={student._id} student={student} />
   ))
   return (
-      <div className={'mh-100'}>
+      <div className={'h-100'}>
         {studentsList}
       </div>
   );

@@ -19,7 +19,7 @@ export default function StudentProfile() {
 
     // console.log(student)
     if (!student) {
-        return <h1>Loading</h1>
+        return <h1 className={'h-100'}>Loading</h1>
     } else {
         return (
             <div className={'d-flex flex-col mh-100'}>
