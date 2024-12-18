@@ -30,7 +30,7 @@ export default function RootLayout({children}) {
             {/*<meta name="viewport" content="viewport-fit=cover"/>*/}
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased vh-100`}>
-        <div className={'h-100'}>
+        <div className={'h-100 overflow-hidden'}>
             {children}
 
         </div>

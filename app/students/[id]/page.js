@@ -45,7 +45,7 @@ export default function StudentProfile() {
                     >Навыки
                     </button>
 
-                    <div className={isOpenGrades ? 'px-1' : 'h-0 overflow-y-hidden'}>
+                    <div className={isOpenGrades ? 'px-1 overflow-scroll' : 'h-0 overflow-y-hidden'}>
                         {
                             student.exercise.map((el, index) => {
                                 return (<Grades gradeIndex={index} id={studentId} key={el.slug} exercises={student.exercise} grade={el}/>)
