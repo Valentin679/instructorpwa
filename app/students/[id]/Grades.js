@@ -27,8 +27,8 @@ export default function Grades({id, grade, gradeIndex}) {
     }, [level]);
     return (
         <div key={grade.slug} className={'d-flex flex-row, mb-1, gap-1 justify-content-between items-center'}>
-            <p className={'mb-0'} key={grade.slug}>{exercise}</p>
-            {level === selectList[0].label ? <p style={{color: 'green'}}>{level}</p> :
+            <p className={'mb-0.5'} key={grade.slug}>{exercise}</p>
+            {level === selectList[0].label ? <p className={'text-success mb-0.5'}>{level}</p> :
                 <Select
                     id={grade.slug}
                     defaultValue={level}
