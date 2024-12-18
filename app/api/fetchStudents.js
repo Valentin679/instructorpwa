@@ -36,7 +36,7 @@ export const addStudent = async (data) => {
     }
 }
 
-export const editStudentGrades = async (id, slug, level, name gradeIndex) => {
+export const editStudentGrades = async (id, slug, level, name, gradeIndex) => {
     await fetch(`${instance.url}api/students/category/b/edit`, {
         method: 'PUT',
         //
