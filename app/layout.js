@@ -29,7 +29,7 @@ export default function RootLayout({children}) {
             <meta name="theme-color" content="#872e4e" media="(prefers-color-scheme: dark)"/>
             {/*<meta name="viewport" content="viewport-fit=cover"/>*/}
         </head>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased vh-100`}>
         <div className={'mh-100'}>
             {children}
             <Nav/>
