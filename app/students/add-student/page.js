@@ -171,6 +171,7 @@ export default function AddStudent() {
         }} maxLength={2} placeholder={'Номер группы'}></Input>
 
         <Select options={statuses} defaultValue={status}
+                className={'w-100'}
                 onChange={(value, option) => {
                   if ("label" in option) {
                     // @ts-ignore
@@ -179,6 +180,7 @@ export default function AddStudent() {
                 }}
         />
         <Select options={instructorsList} defaultValue={instructor}
+                className={'w-100'}
                 onChange={(value, option) => {
                   if ("label" in option) {
                     // @ts-ignore
