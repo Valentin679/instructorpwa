@@ -44,7 +44,7 @@ export default function Grades({id, grade, gradeIndex}) {
                 </Select>
             }
             {changed ? <div className={'ml-1'}><button onClick={()=>{
-                editStudentGrades(id, slug, level, exercise, gradeIndex).then(r => console.log('good'))
+                editStudentGrades(id, slug, level, exercise, gradeIndex).then(r => setChanged(false))
             }}><TfiSave size={22} /></button></div> : null}
 
         </div>)
