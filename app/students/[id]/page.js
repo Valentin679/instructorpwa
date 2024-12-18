@@ -4,6 +4,7 @@ import {usePathname, useSearchParams} from "next/navigation";
 import {getStudentById} from "@/app/api/fetchStudents";
 import profilePic from '../../../public/profile.jpg'
 import Image from 'next/image'
+import Grades from "@/app/students/[id]/Grades";
 
 export default function StudentProfile() {
 
@@ -46,10 +47,10 @@ export default function StudentProfile() {
 
                     <div className={isOpenGrades ? 'h-100 p-1' : 'h-0 overflow-y-hidden'}>
                         <p>sdadasd</p>
-                        {/*{// @ts-ignore*/}
-                        {/*    student.exercise.map((el, index) => {*/}
-                        {/*        return (<Grade gradeIndex={index} id={studentId} key={el.slug} exercises={student.exercise} grade={el}/>)*/}
-                        {/*    })}*/}
+                        {// @ts-ignore
+                            student.exercise.map((el, index) => {
+                                return (<Grades gradeIndex={index} id={studentId} key={el.slug} exercises={student.exercise} grade={el}/>)
+                            })}
                     </div>
                 </div>
             </div>
