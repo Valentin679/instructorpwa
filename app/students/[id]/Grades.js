@@ -26,7 +26,7 @@ export default function Grades({id, grade, indexGrade}) {
         // console.log(level)
     }, [level]);
     return (
-        <div key={grade.slug} className={'d-flex flex-row, mb-1, gap-1 justify-content-between'}>
+        <div key={grade.slug} className={'d-flex flex-row, mb-1, gap-1 justify-content-between items-center'}>
             <p key={grade.slug}>{exercise}</p>
             {level === selectList[0].label ? <p style={{color: 'green'}}>{level}</p> :
                 <Select
@@ -43,9 +43,9 @@ export default function Grades({id, grade, indexGrade}) {
                 >
                 </Select>
             }
-            {changed ? <div><button type={"button"} className={'primary'} onClick={()=>{
+            {changed ? <div><button onClick={()=>{
                 editStudentGrades(id, slug, level, indexGrade).then(r => console.log('good'))
-            }}><TfiSave /></button></div> : null}
+            }}><TfiSave size={24} /></button></div> : null}
 
         </div>)
 }
