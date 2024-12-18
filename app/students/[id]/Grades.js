@@ -25,7 +25,7 @@ export default function Grades({id, grade, indexGrade}) {
         // console.log(level)
     }, [level]);
     return (
-        <div key={grade.slug} className={'d-flex flex-row, mb-1, gap-1 justify-content-beetwen'}>
+        <div key={grade.slug} className={'d-flex flex-row, mb-1, gap-1 justify-content-between'}>
             <p key={grade.slug}>{exercise}</p>
             {level === selectList[0].label ? <p style={{color: 'green'}}>{level}</p> :
                 <Select
@@ -42,8 +42,8 @@ export default function Grades({id, grade, indexGrade}) {
                 >
                 </Select>
             }
-            {changed ? <div><button type={"button"} onClick={()=>{
-                editStudentGrades(id, slug, level, indexGrade)
+            {changed ? <div><button type={"button"} className={'primary'} onClick={()=>{
+                editStudentGrades(id, slug, level, indexGrade).then(r => console.log('good'))
             }}>Save</button></div> : null}
 
         </div>)

@@ -37,7 +37,7 @@ export default function StudentProfile() {
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className={'h-100'}>
                     <button type="button" className={'btn btn-warning w-100'}
                             onClick={() => {
                                 isOpenGrades ? setIsOpenGrades(false) : setIsOpenGrades(true)
@@ -46,8 +46,7 @@ export default function StudentProfile() {
                     </button>
 
                     <div className={isOpenGrades ? 'h-100 p-1' : 'h-0 overflow-y-hidden'}>
-                        <p>sdadasd</p>
-                        {// @ts-ignore
+                        {
                             student.exercise.map((el, index) => {
                                 return (<Grades gradeIndex={index} id={studentId} key={el.slug} exercises={student.exercise} grade={el}/>)
                             })}
