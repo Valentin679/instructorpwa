@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {editStudentGrades} from "@/app/api/fetchStudents";
 import {Select} from "antd";
+import {TfiSave} from "react-icons/tfi";
 
 const selectList = [
     { value: 5, label: 'Полностью освоен' },
@@ -44,7 +45,7 @@ export default function Grades({id, grade, indexGrade}) {
             }
             {changed ? <div><button type={"button"} className={'primary'} onClick={()=>{
                 editStudentGrades(id, slug, level, indexGrade).then(r => console.log('good'))
-            }}>Save</button></div> : null}
+            }}><TfiSave /></button></div> : null}
 
         </div>)
 }
