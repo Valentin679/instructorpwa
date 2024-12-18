@@ -2,6 +2,7 @@
 import {useEffect, useState} from "react";
 import {getStudents} from "@/app/api/fetchStudents";
 import StudentsListItem from "@/app/students/components/StudentsListItem";
+import {router} from "next/client";
 
 export default function Students() {
 
@@ -18,6 +19,9 @@ export default function Students() {
   return (
       <div className={'h-100'}>
         {studentsList}
+        <button type={"button"} className={'btn-primary'} onClick={()=>{
+          router.push('students/add-student')
+        }}></button>
       </div>
   );
 }
