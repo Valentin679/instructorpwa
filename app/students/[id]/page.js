@@ -23,7 +23,7 @@ export default function StudentProfile() {
     } else {
         return (
             <div className={'d-flex flex-col h-100'}>
-                <div className={'d-flex flex-row gap-2 mb-2 p-1 overflow-y-scroll'}>
+                <div className={'d-flex flex-row gap-2 mb-2 p-1'}>
                     <Image src={profilePic} alt={''}
                            className={'w-25 h-100 object-cover'}/>
                     <div style={{flexDirection: 'column', gap: 10}}>
@@ -37,7 +37,7 @@ export default function StudentProfile() {
                         </div>
                     </div>
                 </div>
-                <div className={'h-100'}>
+                <div className={'h-100 overflow-y-scroll'}>
                     <button type="button" className={'btn btn-warning w-100'}
                             onClick={() => {
                                 isOpenGrades ? setIsOpenGrades(false) : setIsOpenGrades(true)
