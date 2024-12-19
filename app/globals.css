@@ -28,6 +28,10 @@ body {
   /*box-sizing: border-box;*/
   /*overflow: hidden;*/
 }
+p {
+padding-bottom: 0 !important;
+margin-bottom: 0 !important;
+}
 
 a {
   text-decoration: none !important;

@@ -5,6 +5,7 @@ import {getStudentById} from "@/app/api/fetchStudents";
 import profilePic from '../../../public/profile.jpg'
 import Image from 'next/image'
 import Grades from "@/app/students/[id]/Grades";
+import GoodTag from "@/app/students/components/Tags/goodTag";
 
 export default function StudentProfile() {
 
@@ -31,6 +32,7 @@ export default function StudentProfile() {
                             <p>{student.firstName}</p>
                             <p>{student.lastName}</p>
                             <p>{student.surname}</p>
+                            <GoodTag/>
                         </div>
                         <div>
                             <p>Группа: {student.group}</p>

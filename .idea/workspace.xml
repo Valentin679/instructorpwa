@@ -5,7 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fbcdb54-815d-4867-9585-2be08222c56b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/students/components/Tags/badTag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/students/components/Tags/endTag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/students/components/Tags/goodTag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/students/components/Tags/startTag.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schedule/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/schedule/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/students/[id]/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/[id]/page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/students/add-student/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/add-student/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/students/components/StudentsListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/components/StudentsListItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,9 +39,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2qOmvWyiYJiTolP2pqQlFyGOaOe" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -42,7 +53,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Projects/instructorpwa/app/students/add-student",
+    "last_opened_file_path": "C:/Projects/instructorpwa/app/students/components/Tags",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,6 +64,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\instructorpwa\app\students\components\Tags" />
       <recent name="C:\Projects\instructorpwa\app\students\add-student" />
     </key>
   </component>
@@ -81,7 +93,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734542226644</updated>
-      <workItem from="1734542227638" duration="10877000" />
+      <workItem from="1734542227638" duration="10894000" />
+      <workItem from="1734627343294" duration="9451000" />
     </task>
     <servers />
   </component>

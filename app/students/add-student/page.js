@@ -1,5 +1,5 @@
 'use client'
-import {Button, Input, Select} from "antd";
+import {Button, Checkbox, DatePicker, Input, Select, Space} from "antd";
 import {useEffect, useState} from "react";
 import {addStudent} from "@/app/api/fetchStudents";
 import { useRouter } from 'next/navigation'
@@ -139,6 +139,21 @@ const exercise = [
   }
 ]
 const quantityPracticalLessons = 0
+
+let exams = [
+  {
+    exam: 'theory',
+    result : false,
+    date: ''
+  },
+  {
+    exam: 'drive',
+    result : false,
+    dates: []
+  }
+]
+
+
 export default function AddStudent() {
   const router = useRouter()
   const [firstName, setFirstName] = useState()
@@ -148,8 +163,20 @@ export default function AddStudent() {
   const [group, setGroup] = useState()
   const [instructor, setInstructor] = useState(instructorsList[0])
   const [status, setStatus] = useState(statuses[0])
+  const [theory, setTheory] = useState(false)
+
+  const onChangeTheoryDate = (date, dateString) => {
+    console.log(
+        // date,
+        dateString);
+    const jsdate = new Date(dateString)
+    console.log('js- ' + dateString)
+  }
+
+
   useEffect(() => {
-  }, [status, instructor, firstName, lastName, surname]);
+  }, [status, instructor, firstName, lastName, surname, theory]);
+  console.log(exams)
   return (
       <div className={'d-flex flex-column gap-2 px-1 items-center'}>
         <p>Введите данные ученика</p>
@@ -187,6 +214,16 @@ export default function AddStudent() {
                     setInstructor({ value, label: option.label})
                   }
                 }}/>
+        <div className={'w-100 d-flex items-center justify-content-around'}>
+          <Checkbox onChange={(e) => {
+            setTheory(e.target.checked)
+            exams[0].result = e.target.checked
+
+          }}>Теория сдана</Checkbox>
+          <Space direction="vertical">
+            <DatePicker placeholder="Дата сдачи" onChange={onChangeTheoryDate} disabled={!exams[0].result} />
+          </Space>
+        </div>
         <Button type={'primary'} onClick={() => {
           const data = {
             firstName,
@@ -197,7 +234,8 @@ export default function AddStudent() {
             status,
             instructor,
             quantityPracticalLessons,
-            exercise
+            exercise,
+            exams
           }
           console.log(data)
           addStudent(data).then(res => {

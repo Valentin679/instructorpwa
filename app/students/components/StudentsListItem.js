@@ -1,6 +1,8 @@
 
 import {useEffect, useState} from "react";
 import Link from "next/link";
+import GoodTag from "@/app/students/components/Tags/goodTag";
+import StartTag from "@/app/students/components/Tags/startTag";
 
 export default function StudentsListItem({student}) {
 
@@ -23,7 +25,13 @@ export default function StudentsListItem({student}) {
                         {student.firstName} {student.lastName[0].toUpperCase()}. {student.surname[0].toUpperCase()}.
                     </p>
                 </div>
-                <p style={{color: 'green'}}>{student.status.label}</p>
+                {student.exams ?
+                    <div className={'d-flex flex-row gap-1'}>
+                    {student.exams[0].result ? <GoodTag point={'Т'}/> : <StartTag point={'Т'}/>}
+                        {student.exams[1].result && student.exams[1].dates.length === 0 ? <GoodTag point={'В'}/> : <StartTag point={'В'}/>}
+                </div> :
+                ''}
+
             </Link>
             <div
                 className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1'}
