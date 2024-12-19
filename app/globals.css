@@ -32,7 +32,9 @@ p {
 padding-bottom: 0 !important;
 margin-bottom: 0 !important;
 }
-
+.fontSize18 input{
+  font-size: 16px !important;
+}
 a {
   text-decoration: none !important;
   color: black !important;

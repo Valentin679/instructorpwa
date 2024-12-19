@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import {TimePicker} from 'antd';
+import {ConfigProvider, TimePicker} from 'antd';
 import dayjs from 'dayjs';
 
 const format = 'HH:mm';
@@ -9,14 +9,18 @@ export default function Schedule() {
     const endTime = dayjs('12:08', 'HH:mm');
     return (
 
-        <div className={'d-flex flex-column'}>
+        <div className={'d-flex flex-column fontSize18'} >
             <div style={{minHeight: '100%'}}>Расписание</div>
+
+
             <TimePicker.RangePicker defaultValue={[startTime, endTime]}
                                     onChange={(time, timeString) => {
                                         console.log(time, timeString);
                                     }}
+                                    size={"middle"}
                                     format={format}
-                                    minuteStep={15}/>
+                                    minuteStep={15}
+            />
         </div>
     );
 }
