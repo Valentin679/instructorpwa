@@ -27,7 +27,7 @@ export default function RootLayout({children}) {
                   crossOrigin="anonymous"/>
             <meta name="theme-color" content="#319197" media="(prefers-color-scheme: light)"/>
             <meta name="theme-color" content="#872e4e" media="(prefers-color-scheme: dark)"/>
-            {/*<meta name="viewport" content="viewport-fit=cover"/>*/}
+            <meta name="viewport" content="width=device-width, user-scalable=no"/>
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased vh-100`}>
         <div className={'h-100 overflow-hidden'}>

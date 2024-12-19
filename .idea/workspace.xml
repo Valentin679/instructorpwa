@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fbcdb54-815d-4867-9585-2be08222c56b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/students/components/Tags/badTag.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/components/Tags/endTag.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/components/Tags/goodTag.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/components/Tags/startTag.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schedule/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/schedule/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/[id]/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/[id]/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/add-student/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/add-student/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/components/StudentsListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/components/StudentsListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +84,7 @@
       <option name="presentableId" value="Default" />
       <updated>1734542226644</updated>
       <workItem from="1734542227638" duration="10894000" />
-      <workItem from="1734627343294" duration="9451000" />
+      <workItem from="1734627343294" duration="9686000" />
     </task>
     <servers />
   </component>
