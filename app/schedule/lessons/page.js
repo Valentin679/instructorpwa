@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import {Button, Radio, DatePicker, Modal, TimePicker, Select } from 'antd';
 import dayjs from 'dayjs';
+import styles from './lessons.module.css'
 
 const format = 'HH:mm';
 export default function Lessons() {
@@ -57,18 +58,18 @@ export default function Lessons() {
             }}>Добавить занятие</Button>
             <Modal title="Занятие" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div className={'d-flex flex-column gap-2'}>
-                    <div className={'d-flex flex-row gap-1'}>
+                    <div className={'d-flex flex-row gap-1 fontSize18'}>
                         <DatePicker onChange={onChangeDate} needConfirm/>
-                        <Button onClick={()=>{
+                        <Button className={'fontSize18'} onClick={()=>{
                             console.log(dayjs().add(1, 'day').format('DD-MM-YYYY'))
                         }}>Завтра</Button>
                     </div>
-                    <div className={'d-flex flex-row gap-2 items-center'}>
-                        <TimePicker value={timeStart} onChange={onChangeTime} format={format} minuteStep={15}/>
-                        <Radio.Group onChange={onChangeLessonDuration} value={lessonDuration}>
+                    <div className={'d-flex flex-row gap-1.5 items-center fontSize18'}>
+                        <TimePicker  value={timeStart} onChange={onChangeTime} format={format} minuteStep={15}/>
+                        <Radio.Group  onChange={onChangeLessonDuration} value={lessonDuration}>
                             <Radio value={1}>1:30</Radio>
-                            <Radio value={2}>1:15</Radio>
-                            <Radio value={3}>1</Radio>
+                            <Radio  value={2}>1:15</Radio>
+                            <Radio  value={3}>1</Radio>
                         </Radio.Group>
                     </div>
                     <Select onChange={onChangeStudent}>
