@@ -8,8 +8,9 @@ export default function Lessons() {
     const startTime = dayjs('9:00', 'HH:mm');
     const endTime = dayjs('10:30', 'HH:mm');
 
-    const [date, setDate] = useState()
-    const [time, setTime] = useState()
+    const [date, setDate] = useState(null)
+    const [time, setTime] = useState(null)
+    const [timeStart, setTimeStart] = useState()
     const [lessonDuration, setLessonDuration] = useState(1)
     const [student, setStudent] = useState()
 
@@ -63,7 +64,7 @@ export default function Lessons() {
                         }}>Завтра</Button>
                     </div>
                     <div className={'d-flex flex-row gap-2 items-center'}>
-                        <TimePicker value={null} onChange={onChangeTime} format={format} minuteStep={15}/>
+                        <TimePicker value={timeStart} onChange={onChangeTime} format={format} minuteStep={15}/>
                         <Radio.Group onChange={onChangeLessonDuration} value={lessonDuration}>
                             <Radio value={1}>1:30</Radio>
                             <Radio value={2}>1:15</Radio>
