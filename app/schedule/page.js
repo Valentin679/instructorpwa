@@ -2,6 +2,8 @@
 import React from 'react';
 import {ConfigProvider, TimePicker} from 'antd';
 import dayjs from 'dayjs';
+import Slots from "@/app/schedule/slots/page";
+import Lessons from "@/app/schedule/lessons/page";
 
 const format = 'HH:mm';
 export default function Schedule() {
@@ -11,16 +13,8 @@ export default function Schedule() {
 
         <div className={'d-flex flex-column fontSize18'} >
             <div style={{minHeight: '100%'}}>Расписание</div>
-
-
-            <TimePicker.RangePicker defaultValue={[startTime, endTime]}
-                                    onChange={(time, timeString) => {
-                                        console.log(time, timeString);
-                                    }}
-                                    size={"middle"}
-                                    format={format}
-                                    minuteStep={15}
-            />
+            <Lessons/>
+            <Slots/>
         </div>
     );
 }
