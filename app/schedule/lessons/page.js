@@ -120,7 +120,7 @@ export default function Lessons() {
                 <div>
                     {lessons.length !== 0 ? lessons.map(lesson => {
                         // <div><p>{lesson.date}</p></div>
-                        return <div className={'d-flex flex-row justify-between'} key={lesson.time}>
+                        return <div className={'d-flex flex-row justify-between py-2 text-2xl'} key={lesson.time}>
                             <p>{lesson.date}</p>
                             <DeleteTwoTone onClick={()=>{
                                 deleteLesson(lesson._id).then(()=>{
