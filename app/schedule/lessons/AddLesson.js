@@ -1,14 +1,16 @@
 'use client'
 import React, {useState} from 'react';
-import {Button, Radio, DatePicker, Modal, TimePicker, Select } from 'antd';
+import {Button, Radio, DatePicker, Modal, TimePicker, Select, message} from 'antd';
 import dayjs from 'dayjs';
 import styles from './lessons.module.css'
+import {addLesson, getLessonsByDate} from "@/app/api/fetchLessons";
+import MessageSuccess from "@/app/components/Loading";
 
 const format = 'HH:mm';
-export default function AddLesson() {
+export default function AddLesson({setUpdate, update}) {
     const startTime = dayjs('9:00', 'HH:mm');
     const endTime = dayjs('10:30', 'HH:mm');
-
+    const [messageApi, contextHolder] = message.useMessage();
     const [date, setDate] = useState(null)
     const [time, setTime] = useState(null)
     const [timeStart, setTimeStart] = useState()
@@ -16,10 +18,31 @@ export default function AddLesson() {
     const [student, setStudent] = useState()
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const success = () => {
+        messageApi.open({
+            type: 'success',
+            content: 'Занятие запланировано',
+        });
+    };
+
     const showModal = () => {
         setIsModalOpen(true);
     };
     const handleOk = () => {
+        const data = {
+            date,
+            time,
+            student,
+            number: 'student.countLessons+1',
+            instructor: {name: 'Мезенин В.А.'},
+            car: {model: 'Лада Гранта', number: "В483ОА67"}
+        }
+        console.log(data)
+        addLesson(data).then(()=>{
+            success()
+            update ? setUpdate(false):setUpdate(true)
+        })
         setIsModalOpen(false);
     };
     const handleCancel = () => {
@@ -51,6 +74,7 @@ export default function AddLesson() {
     return (
 
         <div className={'d-flex flex-column fontSize18'}>
+            {contextHolder}
             <Button type={'primary'} onClick={() => {
                 showModal(true)
                 console.log(dayjs().add(1, 'day').format('DD-MM-YYYY'))
@@ -58,9 +82,9 @@ export default function AddLesson() {
             <Modal title="Занятие" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div className={'d-flex flex-column gap-2'}>
                     <div className={'d-flex flex-row gap-1 fontSize18'}>
-                        <DatePicker onChange={onChangeDate} needConfirm/>
+                        <DatePicker onChange={onChangeDate} needConfirm format={'DD/MM'}/>
                         <Button className={'fontSize18'} onClick={()=>{
-                            console.log(dayjs().add(1, 'day').format('DD-MM-YYYY'))
+                            console.log(dayjs().add(1, 'day').format('DD/MM'))
                         }}>Завтра</Button>
                     </div>
                     <div className={'d-flex flex-row gap-1.5 items-center fontSize18'}>
@@ -71,8 +95,8 @@ export default function AddLesson() {
                             onChange={onChangeLessonDuration}
                             value={lessonDuration}>
                             <Radio value={1}>1:30</Radio>
-                            <Radio  value={2}>1:15</Radio>
-                            <Radio  value={3}>1</Radio>
+                            <Radio value={2}>1:15</Radio>
+                            <Radio value={3}>1</Radio>
                         </Radio.Group>
                     </div>
                     <Select onChange={onChangeStudent}>

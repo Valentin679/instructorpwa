@@ -4,8 +4,10 @@ import dayjs from 'dayjs';
 import AddLesson from "@/app/schedule/lessons/AddLesson";
 import weekday from 'dayjs/plugin/weekday'
 import toObject from 'dayjs/plugin/toObject'
-import {Spin} from "antd";
-import {getLessonsByDate, getStudentByDate} from "@/app/api/fetchLessons";
+import {message, Spin} from "antd";
+import {deleteLesson, getLessonsByDate} from "@/app/api/fetchLessons";
+import Loading from "@/app/components/Loading";
+import {DeleteTwoTone} from "@ant-design/icons";
 dayjs.extend(toObject)
 dayjs.extend(weekday);
 
@@ -55,21 +57,27 @@ const localeObject = {
     }
 }
 dayjs.locale('ru', localeObject);
-
-
 let weekDays = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ',];
 
-
 export default function Lessons() {
+    const [messageApi, contextHolder] = message.useMessage();
     const nowDay = dayjs().date()
     const nowMonth = dayjs().month()
     const nowDate = nowDay + '/' + Number(nowMonth+1)
     const [activeDate, setActiveDate] = useState(nowDate)
+    const [update, setUpdate] = useState(false)
     const [loadLessons, setLoadLessons] = useState(false)
     const [lessons, setLessons] = useState([])
     const startWeek = dayjs().weekday(0).toObject()
     const endWeek = dayjs().weekday(6)
     const arr = []
+
+    const error = () => {
+        messageApi.open({
+            type: 'error',
+            content: 'Занятие отменено',
+        });
+    };
 
     function getViewDays() {
 
@@ -98,26 +106,36 @@ export default function Lessons() {
         activeDate ? getLessonsByDate(activeDate).then((res)=>{
             setLessons(res)
             setLoadLessons(false)}) : ''
-    }, [activeDate]);
+    }, [activeDate, update]);
     return (
         <div className={'d-flex flex-column fontSize18 gap-2 p-1.5'}>
+            {contextHolder}
             <div style={{scrollSnapType: 'x proximity', overflow: 'auto', borderRadius: 10}}
                  className={'d-flex flex-row gap-2'}>
                 {datesList}
             </div>
             {loadLessons ?
-                <div className={'mx-auto'}> <Spin size="large" /></div>
+                <Loading/>
                 :
                 <div>
                     {lessons.length !== 0 ? lessons.map(lesson => {
                         // <div><p>{lesson.date}</p></div>
-                        return <p key={lesson.time}>{lesson.date}</p>
+                        return <div className={'d-flex flex-row justify-between'} key={lesson.time}>
+                            <p>{lesson.date}</p>
+                            <DeleteTwoTone onClick={()=>{
+                                deleteLesson(lesson._id).then(()=>{
+                                    error()
+                                    update ? setUpdate(false):setUpdate(true)
+                                })
+                            }}/>
+                        </div>
                         // console.log(lesson)
                     }): <p>Нет занятий</p>
                     }
+                    <AddLesson setUpdate={setUpdate} update={update}/>
                 </div>}
             {/*<Schedule/>*/}
-            <AddLesson/>
+
         </div>
     );
 }

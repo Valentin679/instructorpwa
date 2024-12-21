@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc836874-f9ee-4042-b35b-1e31346abff9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/components/Loading.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/fetchLessons.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/fetchLessons.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schedule/lessons/AddLesson.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/schedule/lessons/AddLesson.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/schedule/lessons/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/schedule/lessons/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +95,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734785963901</updated>
-      <workItem from="1734785966456" duration="14644000" />
+      <workItem from="1734785966456" duration="19433000" />
     </task>
     <servers />
   </component>
