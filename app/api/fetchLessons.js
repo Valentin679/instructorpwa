@@ -13,7 +13,7 @@ export async function getStudents() {
     }
 }
 export async function getLessonsByDate(date) {
-    const response = await fetch(`${instance.url}api/lessons?date="${date}"`, {
+    const response = await fetch(`${instance.url}api/lessons/b/date/`+date, {
         method: "GET",
         headers: { "Accept": "application/json" }
     });

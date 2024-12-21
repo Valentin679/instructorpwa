@@ -66,6 +66,7 @@ export default function Lessons() {
     const nowDate = nowDay + '/' + Number(nowMonth+1)
     const [activeDate, setActiveDate] = useState(nowDate)
     const [loadLessons, setLoadLessons] = useState(false)
+    const [lessons, setLessons] = useState([])
     const startWeek = dayjs().weekday(0).toObject()
     const endWeek = dayjs().weekday(6)
     const arr = []
@@ -94,7 +95,9 @@ export default function Lessons() {
     useEffect(() => {
         setLoadLessons(true)
         console.log(activeDate)
-        activeDate ? getLessonsByDate(activeDate).then(()=>{setLoadLessons(false)}) : ''
+        activeDate ? getLessonsByDate(activeDate).then((res)=>{
+            setLessons(res)
+            setLoadLessons(false)}) : ''
     }, [activeDate]);
     return (
         <div className={'d-flex flex-column fontSize18 gap-2 p-1.5'}>
@@ -105,7 +108,14 @@ export default function Lessons() {
             {loadLessons ?
                 <div className={'mx-auto'}> <Spin size="large" /></div>
                 :
-                <div></div>}
+                <div>
+                    {lessons.length !== 0 ? lessons.map(lesson => {
+                        // <div><p>{lesson.date}</p></div>
+                        return <p key={lesson.time}>{lesson.date}</p>
+                        // console.log(lesson)
+                    }): <p>Нет занятий</p>
+                    }
+                </div>}
             {/*<Schedule/>*/}
             <AddLesson/>
         </div>
