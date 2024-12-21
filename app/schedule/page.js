@@ -14,7 +14,7 @@ export default function Schedule() {
         <div className={'d-flex flex-column fontSize18'} >
             <div style={{minHeight: '100%'}}>Расписание</div>
             <Lessons/>
-            <Slots/>
+            {/*<Slots/>*/}
         </div>
     );
 }
