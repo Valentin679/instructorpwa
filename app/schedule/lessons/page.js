@@ -2,17 +2,12 @@
 import React, {useEffect, useState} from 'react';
 import dayjs from 'dayjs';
 import AddLesson from "@/app/schedule/lessons/AddLesson";
-import Schedule from "@/app/schedule/lessons/Schedule";
 import weekday from 'dayjs/plugin/weekday'
-import duration from 'dayjs/plugin/duration'
-import calendar from 'dayjs/plugin/calendar'
 import toObject from 'dayjs/plugin/toObject'
-import {B612} from "next/dist/compiled/@next/font/dist/google";
-
-dayjs.extend(calendar)
+import {Spin} from "antd";
+import {getLessonsByDate, getStudentByDate} from "@/app/api/fetchLessons";
 dayjs.extend(toObject)
 dayjs.extend(weekday);
-dayjs.extend(duration)
 
 const localeObject = {
     name: 'ru', // имя String
@@ -70,6 +65,7 @@ export default function Lessons() {
     const nowMonth = dayjs().month()
     const nowDate = nowDay + '/' + Number(nowMonth+1)
     const [activeDate, setActiveDate] = useState(nowDate)
+    const [loadLessons, setLoadLessons] = useState(false)
     const startWeek = dayjs().weekday(0).toObject()
     const endWeek = dayjs().weekday(6)
     const arr = []
@@ -89,16 +85,27 @@ export default function Lessons() {
                          id={`${e.date}/${e.months + 1}`}
                          day={e.date} month={e.months}
                          nowDay={nowDay}
+                         nowDate={nowDate}
                          setActiveDate={setActiveDate}
+                         activeDate={activeDate}
         />
 
     })
+    useEffect(() => {
+        setLoadLessons(true)
+        console.log(activeDate)
+        activeDate ? getLessonsByDate(activeDate).then(()=>{setLoadLessons(false)}) : ''
+    }, [activeDate]);
     return (
         <div className={'d-flex flex-column fontSize18 gap-2 p-1.5'}>
             <div style={{scrollSnapType: 'x proximity', overflow: 'auto', borderRadius: 10}}
                  className={'d-flex flex-row gap-2'}>
                 {datesList}
             </div>
+            {loadLessons ?
+                <div className={'mx-auto'}> <Spin size="large" /></div>
+                :
+                <div></div>}
             {/*<Schedule/>*/}
             <AddLesson/>
         </div>
@@ -106,19 +113,19 @@ export default function Lessons() {
 }
 
 
-function DayBlock({day, month, nowDay, id, setActiveDate}) {
+function DayBlock({day, month, nowDay, id, setActiveDate,activeDate, nowDate}) {
     const dayWeek = dayjs(`${day}/${month + 1}`, 'DD/MM').day()
     return (
 
         <div id={id} style={{borderRadius: 7}}
-             className={`'d-flex flex-column px-1.5 border rounded' ${day === nowDay ? 'border-danger' : 'border-secondary'} `}
+             className={`'d-flex flex-column px-1.5 border rounded' ${id === activeDate ? 'border-2 border-danger'  : 'border-secondary'} `}
              onClick={()=>{setActiveDate(id)}}
         >
             <div>
-                {nowDay === day ? <p style={{fontSize: 28, color: 'red', fontWeight: 'bold'}}>{day}</p> :
+                {nowDay === day ? <p className={'text-success'} style={{fontSize: 28, fontWeight: 'bold'}}>{day}</p> :
                     <p style={{fontSize: 28}}>{day}</p>}
             </div>
-            <div><p style={{fontSize: 20, textAlign: 'center'}}>{weekDays[dayWeek]}</p>
+            <div><p className={nowDay===day ? 'text-success' : ''} style={{fontSize: 20, textAlign: 'center'}}>{weekDays[dayWeek]}</p>
             </div>
         </div>
     );
