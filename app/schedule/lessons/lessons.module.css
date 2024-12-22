@@ -14,5 +14,19 @@
     left: 10%;
 }
 
+.move50 {
+    left: 50px;
+}
 
+.visibleMore {
+    width: 100%;
+    transition: 1s ease;
+    float: right;
+}
+
+.hiddenMore {
+    overflow: hidden;
+    transition: 0.5s ease;
+    width: 0;
+}
 

@@ -1,22 +1,19 @@
 'use client'
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Radio, DatePicker, Modal, TimePicker, Select, message} from 'antd';
 import dayjs from 'dayjs';
-import styles from './lessons.module.css'
-import {addLesson, getLessonsByDate} from "@/app/api/fetchLessons";
-import MessageSuccess from "@/app/components/Loading";
+import {addLesson} from "@/app/api/fetchLessons";
+import {getStudents} from "@/app/api/fetchStudents";
 
 const format = 'HH:mm';
 export default function AddLesson({setUpdate, update}) {
-    const startTime = dayjs('9:00', 'HH:mm');
-    const endTime = dayjs('10:30', 'HH:mm');
     const [messageApi, contextHolder] = message.useMessage();
     const [date, setDate] = useState(null)
     const [time, setTime] = useState(null)
     const [timeStart, setTimeStart] = useState()
     const [lessonDuration, setLessonDuration] = useState(1)
     const [student, setStudent] = useState()
-
+    const [studentList, setStudentList] = useState()
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const success = () => {
@@ -71,13 +68,24 @@ export default function AddLesson({setUpdate, update}) {
         setStudent(value)
     }
 
+    useEffect(() => {
+
+        getStudents().then((res)=>{
+            const studentsArr = res.map(student => {
+                return {value: student.firstName}
+            })
+            setStudentList(studentsArr)
+        })
+    }, [studentList === 0]);
+
+    console.log(studentList)
     return (
 
         <div className={'d-flex flex-column fontSize18'}>
             {contextHolder}
             <Button type={'primary'} onClick={() => {
                 showModal(true)
-                console.log(dayjs().add(1, 'day').format('DD-MM-YYYY'))
+                console.log(dayjs().add(1, 'day').format('DD/MM'))
             }}>Добавить занятие</Button>
             <Modal title="Занятие" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div className={'d-flex flex-column gap-2'}>
@@ -99,8 +107,10 @@ export default function AddLesson({setUpdate, update}) {
                             <Radio value={3}>1</Radio>
                         </Radio.Group>
                     </div>
-                    <Select onChange={onChangeStudent}>
-                        <Select.Option value="Samvel">Самвел</Select.Option>
+                    <Select onChange={onChangeStudent}
+                            options={studentList}
+                    >
+                        {/*<Select.Option value="Samvel">Самвел</Select.Option>*/}
                     </Select>
                     {/*<TimePicker.RangePicker onChange={onChangeTime} defaultValue={[startTime, endTime]} format={format}*/}
                     {/*                        minuteStep={15}/>*/}

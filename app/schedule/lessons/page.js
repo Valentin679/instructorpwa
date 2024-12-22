@@ -8,6 +8,7 @@ import {message, Spin} from "antd";
 import {deleteLesson, getLessonsByDate} from "@/app/api/fetchLessons";
 import Loading from "@/app/components/Loading";
 import {DeleteTwoTone} from "@ant-design/icons";
+import OneLesson from "@/app/schedule/lessons/OneLesson";
 dayjs.extend(toObject)
 dayjs.extend(weekday);
 
@@ -118,17 +119,9 @@ export default function Lessons() {
                 <Loading/>
                 :
                 <div>
-                    {lessons.length !== 0 ? lessons.map(lesson => {
+                    {lessons.length !== 0 ? lessons.sort((a, b) => a.time > b.time ? 1 : -1).map(lesson => {
                         // <div><p>{lesson.date}</p></div>
-                        return <div className={'d-flex flex-row justify-between py-2 text-2xl'} key={lesson.time}>
-                            <p>{lesson.date}</p>
-                            <DeleteTwoTone onClick={()=>{
-                                deleteLesson(lesson._id).then(()=>{
-                                    error()
-                                    update ? setUpdate(false):setUpdate(true)
-                                })
-                            }}/>
-                        </div>
+                        return <OneLesson key={lesson._id} lesson={lesson} setUpdate={setUpdate} update={update}/>
                         // console.log(lesson)
                     }): <p>Нет занятий</p>
                     }
