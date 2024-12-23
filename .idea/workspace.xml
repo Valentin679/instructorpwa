@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bc836874-f9ee-4042-b35b-1e31346abff9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schedule/lessons/AddLesson.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/schedule/lessons/AddLesson.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/schedule/lessons/OneLesson.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/schedule/lessons/OneLesson.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schedule/lessons/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/schedule/lessons/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schedule/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/schedule/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/add-student/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/add-student/page.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +93,7 @@
       <updated>1734785963901</updated>
       <workItem from="1734785966456" duration="19562000" />
       <workItem from="1734892524899" duration="7360000" />
-      <workItem from="1734972033448" duration="5085000" />
+      <workItem from="1734972033448" duration="8289000" />
     </task>
     <servers />
   </component>
