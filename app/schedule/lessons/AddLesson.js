@@ -5,23 +5,19 @@ import dayjs from 'dayjs';
 import {addLesson} from "@/app/api/fetchLessons";
 import {getStudents} from "@/app/api/fetchStudents";
 
-const format = 'HH:mm';
-export default function AddLesson({setUpdate, update}) {
-    const [messageApi, contextHolder] = message.useMessage();
+
+export default function AddLesson({setUpdate, update, success}) {
+    const [fetchingStudents, setFetchingStudents] = useState(false)
     const [date, setDate] = useState(null)
     const [time, setTime] = useState(null)
     const [timeStart, setTimeStart] = useState()
     const [lessonDuration, setLessonDuration] = useState(1)
     const [student, setStudent] = useState()
-    const [studentList, setStudentList] = useState()
+    const [studentListForSelect, setStudentListForSelect] = useState()
+    const [studentsList, setStudentsList] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const format = 'HH:mm';
 
-    const success = () => {
-        messageApi.open({
-            type: 'success',
-            content: 'Занятие запланировано',
-        });
-    };
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -37,7 +33,7 @@ export default function AddLesson({setUpdate, update}) {
         }
         console.log(data)
         addLesson(data).then(()=>{
-            success()
+            success('Занятие запланировано')
             update ? setUpdate(false):setUpdate(true)
         })
         setIsModalOpen(false);
@@ -64,25 +60,27 @@ export default function AddLesson({setUpdate, update}) {
     }
 
     const onChangeStudent = (value) => {
-        console.log(value)
-        setStudent(value)
+        const result = studentsList.find(student => student._id === value)
+        setStudent(result)
     }
 
-    useEffect(() => {
-
+    const fetchStudentsForSelect = () => {
         getStudents().then((res)=>{
+            setStudentsList(res)
             const studentsArr = res.map(student => {
-                return {value: student.firstName}
+                return {value: student._id, label: student.firstName}
             })
-            setStudentList(studentsArr)
+            setStudentListForSelect(studentsArr)
         })
-    }, [studentList === 0]);
+    }
+    useEffect(() => {
+        fetchingStudents ? fetchStudentsForSelect() : ''
+    }, [fetchingStudents]);
 
-    console.log(studentList)
     return (
 
         <div className={'d-flex flex-column fontSize18'}>
-            {contextHolder}
+
             <Button type={'primary'} onClick={() => {
                 showModal(true)
                 console.log(dayjs().add(1, 'day').format('DD/MM'))
@@ -90,13 +88,13 @@ export default function AddLesson({setUpdate, update}) {
             <Modal title="Занятие" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div className={'d-flex flex-column gap-2'}>
                     <div className={'d-flex flex-row gap-1 fontSize18'}>
-                        <DatePicker onChange={onChangeDate} needConfirm format={'DD/MM'}/>
+                        <DatePicker onChange={onChangeDate} needConfirm={false} format={'DD/MM'}/>
                         <Button className={'fontSize18'} onClick={()=>{
                             console.log(dayjs().add(1, 'day').format('DD/MM'))
                         }}>Завтра</Button>
                     </div>
                     <div className={'d-flex flex-row gap-1.5 items-center fontSize18'}>
-                        <TimePicker  value={timeStart} onChange={onChangeTime} format={format} minuteStep={15}/>
+                        <TimePicker  value={timeStart} onChange={onChangeTime} changeOnScroll needConfirm={false} format={format} minuteStep={15}/>
                         <Radio.Group
                             optionType="button"
                             buttonStyle="solid"
@@ -108,7 +106,10 @@ export default function AddLesson({setUpdate, update}) {
                         </Radio.Group>
                     </div>
                     <Select onChange={onChangeStudent}
-                            options={studentList}
+                            options={studentListForSelect}
+                            onDropdownVisibleChange={()=>{
+                                fetchingStudents ? setFetchingStudents(false) : setFetchingStudents(true)
+                            }}
                     >
                         {/*<Select.Option value="Samvel">Самвел</Select.Option>*/}
                     </Select>

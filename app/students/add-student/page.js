@@ -182,10 +182,10 @@ export default function AddStudent() {
         <p>Введите данные ученика</p>
         {/*<TextInput onChangeText={(text)=>{setFirstName(text)}} placeholder={'Фамилия'}></TextInput>*/}
         <Input onChange={(e) => {
-          setFirstName(e.target.value)
+          setLastName(e.target.value)
         }} placeholder={'Фамилия'}></Input>
         <Input onChange={(e) => {
-          setLastName(e.target.value)
+          setFirstName(e.target.value)
         }} placeholder={'Имя'}></Input>
         <Input onChange={(e) => {
           setSurname(e.target.value)

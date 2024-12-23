@@ -60,7 +60,7 @@ const localeObject = {
 dayjs.locale('ru', localeObject);
 let weekDays = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ',];
 
-export default function Lessons() {
+export default function Lessons({success}) {
     const [messageApi, contextHolder] = message.useMessage();
     const nowDay = dayjs().date()
     const nowMonth = dayjs().month()
@@ -73,12 +73,6 @@ export default function Lessons() {
     const endWeek = dayjs().weekday(6)
     const arr = []
 
-    const error = () => {
-        messageApi.open({
-            type: 'error',
-            content: 'Занятие отменено',
-        });
-    };
 
     function getViewDays() {
 
@@ -121,11 +115,11 @@ export default function Lessons() {
                 <div>
                     {lessons.length !== 0 ? lessons.sort((a, b) => a.time > b.time ? 1 : -1).map(lesson => {
                         // <div><p>{lesson.date}</p></div>
-                        return <OneLesson key={lesson._id} lesson={lesson} setUpdate={setUpdate} update={update}/>
+                        return <OneLesson key={lesson._id} lesson={lesson} setUpdate={setUpdate} update={update} success={success}/>
                         // console.log(lesson)
                     }): <p>Нет занятий</p>
                     }
-                    <AddLesson setUpdate={setUpdate} update={update}/>
+                    <AddLesson success={success} setUpdate={setUpdate} update={update}/>
                 </div>}
             {/*<Schedule/>*/}
 
