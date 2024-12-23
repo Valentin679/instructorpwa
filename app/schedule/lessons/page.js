@@ -9,6 +9,7 @@ import {deleteLesson, getLessonsByDate} from "@/app/api/fetchLessons";
 import Loading from "@/app/components/Loading";
 import {DeleteTwoTone} from "@ant-design/icons";
 import OneLesson from "@/app/schedule/lessons/OneLesson";
+
 dayjs.extend(toObject)
 dayjs.extend(weekday);
 
@@ -64,7 +65,7 @@ export default function Lessons({success}) {
     const [messageApi, contextHolder] = message.useMessage();
     const nowDay = dayjs().date()
     const nowMonth = dayjs().month()
-    const nowDate = nowDay + '/' + Number(nowMonth+1)
+    const nowDate = nowDay + '/' + Number(nowMonth + 1)
     const [activeDate, setActiveDate] = useState(nowDate)
     const [update, setUpdate] = useState(false)
     const [loadLessons, setLoadLessons] = useState(false)
@@ -98,12 +99,13 @@ export default function Lessons({success}) {
     useEffect(() => {
         setLoadLessons(true)
         console.log(activeDate)
-        activeDate ? getLessonsByDate(activeDate).then((res)=>{
+        activeDate ? getLessonsByDate(activeDate).then((res) => {
             setLessons(res)
-            setLoadLessons(false)}) : ''
+            setLoadLessons(false)
+        }) : ''
     }, [activeDate, update]);
     return (
-        <div className={'d-flex flex-column fontSize18 gap-2 p-1.5'}>
+        <div className={'d-flex flex-column fontSize18 gap-2 p-2'}>
             {contextHolder}
             <div style={{scrollSnapType: 'x proximity', overflow: 'auto', borderRadius: 10}}
                  className={'d-flex flex-row gap-2'}>
@@ -115,9 +117,10 @@ export default function Lessons({success}) {
                 <div>
                     {lessons.length !== 0 ? lessons.sort((a, b) => a.time > b.time ? 1 : -1).map(lesson => {
                         // <div><p>{lesson.date}</p></div>
-                        return <OneLesson key={lesson._id} lesson={lesson} setUpdate={setUpdate} update={update} success={success}/>
+                        return <OneLesson key={lesson._id} lesson={lesson} setUpdate={setUpdate} update={update}
+                                          success={success}/>
                         // console.log(lesson)
-                    }): <p>Нет занятий</p>
+                    }) : <p>Нет занятий</p>
                     }
                     <AddLesson success={success} setUpdate={setUpdate} update={update}/>
                 </div>}
@@ -128,19 +131,22 @@ export default function Lessons({success}) {
 }
 
 
-function DayBlock({day, month, nowDay, id, setActiveDate,activeDate, nowDate}) {
+function DayBlock({day, month, nowDay, id, setActiveDate, activeDate, nowDate}) {
     const dayWeek = dayjs(`${day}/${month + 1}`, 'DD/MM').day()
     return (
 
         <div id={id} style={{borderRadius: 7}}
-             className={`'d-flex flex-column px-1.5 border rounded' ${id === activeDate ? 'border-2 border-danger'  : 'border-secondary'} `}
-             onClick={()=>{setActiveDate(id)}}
+             className={`'d-flex flex-column px-1.5 border rounded' ${id === activeDate ? 'border-2 border-danger' : 'border-secondary'} `}
+             onClick={() => {
+                 setActiveDate(id)
+             }}
         >
             <div>
                 {nowDay === day ? <p className={'text-success'} style={{fontSize: 28, fontWeight: 'bold'}}>{day}</p> :
                     <p style={{fontSize: 28}}>{day}</p>}
             </div>
-            <div><p className={nowDay===day ? 'text-success' : ''} style={{fontSize: 20, textAlign: 'center'}}>{weekDays[dayWeek]}</p>
+            <div><p className={nowDay === day ? 'text-success' : ''}
+                    style={{fontSize: 20, textAlign: 'center'}}>{weekDays[dayWeek]}</p>
             </div>
         </div>
     );

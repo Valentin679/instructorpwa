@@ -27,7 +27,7 @@ export default function AddLesson({setUpdate, update, success}) {
             date,
             time,
             student,
-            number: 'student.countLessons+1',
+            number: student.quantityPracticalLessons + 1,
             instructor: {name: 'Мезенин В.А.'},
             car: {model: 'Лада Гранта', number: "В483ОА67"}
         }
@@ -77,6 +77,7 @@ export default function AddLesson({setUpdate, update, success}) {
         fetchingStudents ? fetchStudentsForSelect() : ''
     }, [fetchingStudents]);
 
+    console.log(student)
     return (
 
         <div className={'d-flex flex-column fontSize18'}>
@@ -90,7 +91,7 @@ export default function AddLesson({setUpdate, update, success}) {
                     <div className={'d-flex flex-row gap-1 fontSize18'}>
                         <DatePicker onChange={onChangeDate} needConfirm={false} format={'DD/MM'}/>
                         <Button className={'fontSize18'} onClick={()=>{
-                            console.log(dayjs().add(1, 'day').format('DD/MM'))
+                            setDate(dayjs().add(1, 'day').format('DD/MM'))
                         }}>Завтра</Button>
                     </div>
                     <div className={'d-flex flex-row gap-1.5 items-center fontSize18'}>
