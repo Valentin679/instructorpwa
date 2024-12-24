@@ -49,6 +49,20 @@ export const editStudentGrades = async (id, slug, level, name, gradeIndex) => {
     })
 }
 
+export const changeCountLesson = async (id, value) => {
+    await fetch(`${instance.url}api/students/count-lessons`, {
+        method: 'PUT',
+        //
+        body: JSON.stringify({
+            id, value
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=utf-8'
+        }
+    })
+}
+
+
 export const putStudent = async (changedMaterialsId, title, category, price) => {
     await fetch('http://localhost:8800/api/students/category/b', {
         method: 'PUT',

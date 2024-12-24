@@ -3,14 +3,15 @@ import {CaretRightOutlined, DeleteTwoTone, EditOutlined, EditTwoTone, MoreOutlin
 import {deleteLesson} from "@/app/api/fetchLessons";
 import styles from './lessons.module.css'
 import {Tag} from "antd";
+import {changeCountLesson} from "@/app/api/fetchStudents";
 
 export default function OneLesson({update, setUpdate, lesson, success}) {
     const [moreActions, setMoreActions] = useState(false)
     const priorityExer = lesson.student.exercise.find(exer => exer.level === 'Часто требуется подсказка' ||
         exer.level === 'Ознакомлен')
     const nextExer = lesson.student.exercise.find(exer => exer.level === 'Не изучено')
-    console.log(lesson)
-    console.log(nextExer)
+    // console.log(lesson)
+    // console.log(nextExer)
     return (
         <div
             className={'d-flex flex-row justify-between items-center py-2 gap-1'} key={lesson.time}>
@@ -28,7 +29,7 @@ export default function OneLesson({update, setUpdate, lesson, success}) {
                             lesson.student.quantityPracticalLessons < 27 ?
                                 <Tag color="#108ee9">{lesson.student.quantityPracticalLessons + 1}/27</Tag>:
                                     lesson.student.quantityPracticalLessons === 27 ?
-                                    <Tag color="#108ee9">{lesson.student.quantityPracticalLessons}/27</Tag> :
+                                    <Tag color="#5d0081">1 ДП</Tag> :
                                     <Tag color="#5d0081">{lesson.student.quantityPracticalLessons - 27} ДП</Tag>
                         }
                     </div>
@@ -41,8 +42,11 @@ export default function OneLesson({update, setUpdate, lesson, success}) {
                     <EditTwoTone/>
                     <DeleteTwoTone twoToneColor="#e20707" onClick={() => {
                         deleteLesson(lesson._id).then(() => {
-                            success('Занятие отменено')
-                            update ? setUpdate(false) : setUpdate(true)
+                            changeCountLesson(lesson.student._id, lesson.student.quantityPracticalLessons - 1).then(()=>{
+                                success('Занятие отменено')
+                                update ? setUpdate(false) : setUpdate(true)
+                            })
+
                         })
                     }}/>
                 </div>

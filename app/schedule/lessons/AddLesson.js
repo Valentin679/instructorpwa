@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Radio, DatePicker, Modal, TimePicker, Select, message} from 'antd';
 import dayjs from 'dayjs';
 import {addLesson} from "@/app/api/fetchLessons";
-import {getStudents} from "@/app/api/fetchStudents";
+import {changeCountLesson, getStudents} from "@/app/api/fetchStudents";
 
 
 export default function AddLesson({setUpdate, update, success}) {
@@ -27,14 +27,17 @@ export default function AddLesson({setUpdate, update, success}) {
             date,
             time,
             student,
-            number: student.quantityPracticalLessons + 1,
+            lessonNumber: student.quantityPracticalLessons + 1,
             instructor: {name: 'Мезенин В.А.'},
             car: {model: 'Лада Гранта', number: "В483ОА67"}
         }
         console.log(data)
         addLesson(data).then(()=>{
-            success('Занятие запланировано')
-            update ? setUpdate(false):setUpdate(true)
+            changeCountLesson(student._id, student.quantityPracticalLessons+1).then(()=>{
+                success('Занятие запланировано')
+                update ? setUpdate(false):setUpdate(true)
+            })
+
         })
         setIsModalOpen(false);
     };
@@ -77,25 +80,24 @@ export default function AddLesson({setUpdate, update, success}) {
         fetchingStudents ? fetchStudentsForSelect() : ''
     }, [fetchingStudents]);
 
-    console.log(student)
+    // console.log(student)
     return (
 
         <div className={'d-flex flex-column fontSize18'}>
 
             <Button type={'primary'} onClick={() => {
                 showModal(true)
-                console.log(dayjs().add(1, 'day').format('DD/MM'))
             }}>Добавить занятие</Button>
             <Modal title="Занятие" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div className={'d-flex flex-column gap-2'}>
                     <div className={'d-flex flex-row gap-1 fontSize18'}>
-                        <DatePicker onChange={onChangeDate} needConfirm={false} format={'DD/MM'}/>
+                        <DatePicker status={date ? "" : "error"} onChange={onChangeDate} needConfirm={false} format={'DD/MM'}/>
                         <Button className={'fontSize18'} onClick={()=>{
                             setDate(dayjs().add(1, 'day').format('DD/MM'))
                         }}>Завтра</Button>
                     </div>
                     <div className={'d-flex flex-row gap-1.5 items-center fontSize18'}>
-                        <TimePicker  value={timeStart} onChange={onChangeTime} changeOnScroll needConfirm={false} format={format} minuteStep={15}/>
+                        <TimePicker status={time ? "" : "error"}  value={timeStart} onChange={onChangeTime} changeOnScroll needConfirm={false} format={format} minuteStep={15}/>
                         <Radio.Group
                             optionType="button"
                             buttonStyle="solid"

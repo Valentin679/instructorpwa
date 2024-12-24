@@ -98,7 +98,7 @@ export default function Lessons({success}) {
     })
     useEffect(() => {
         setLoadLessons(true)
-        console.log(activeDate)
+        // console.log(activeDate)
         activeDate ? getLessonsByDate(activeDate).then((res) => {
             setLessons(res)
             setLoadLessons(false)
