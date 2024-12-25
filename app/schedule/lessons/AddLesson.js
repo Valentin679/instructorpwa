@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Radio, DatePicker, Modal, TimePicker, Select, message} from 'antd';
 import dayjs from 'dayjs';
 import {addLesson} from "@/app/api/fetchLessons";
-import {changeCountLesson, getStudents} from "@/app/api/fetchStudents";
+import {changeCountLesson, getActiveStudents} from "@/app/api/fetchStudents";
 
 
 export default function AddLesson({setUpdate, update, success}) {
@@ -68,7 +68,7 @@ export default function AddLesson({setUpdate, update, success}) {
     }
 
     const fetchStudentsForSelect = () => {
-        getStudents().then((res)=>{
+        getActiveStudents().then((res)=>{
             setStudentsList(res)
             const studentsArr = res.map(student => {
                 return {value: student._id, label: student.firstName}

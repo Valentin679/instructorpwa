@@ -14,8 +14,8 @@ const selectList = [
 
 
 export default function Grades({id, grade, gradeIndex}) {
-    console.log(id)
-    console.log(grade)
+    // console.log(id)
+    // console.log(grade)
     const [exercise, setExercise] = useState(grade.name)
     const [level, setLevel] = useState(grade.level)
     const [slug, setSlug] = useState(grade.slug)

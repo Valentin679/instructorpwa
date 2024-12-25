@@ -6,6 +6,7 @@ import profilePic from '../../../public/profile.jpg'
 import Image from 'next/image'
 import Grades from "@/app/students/[id]/Grades";
 import GoodTag from "@/app/students/components/Tags/goodTag";
+import GroupTag from "@/app/students/components/Tags/groupTag";
 
 export default function StudentProfile() {
 
@@ -35,7 +36,7 @@ export default function StudentProfile() {
                             <GoodTag/>
                         </div>
                         <div>
-                            <p>Группа: {student.group}</p>
+                            <p>Группа: <GroupTag group={student.group}/></p>
                         </div>
                     </div>
                 </div>

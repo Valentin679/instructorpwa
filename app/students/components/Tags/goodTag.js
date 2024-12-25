@@ -7,7 +7,7 @@ import {Tag} from "antd";
 export default function GoodTag({point}) {
     return (
         // <div className={'bg-success text-white px-2 py-0.5 rounded '}><p className={'text-sm'}>{point}</p></div>
-        <Tag color="#87d068">{point}</Tag>
+        <Tag style={{marginInlineEnd: 0}} color="#87d068">{point}</Tag>
     );
 }
 
