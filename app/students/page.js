@@ -62,8 +62,8 @@ export default function Students() {
         }
         else if (activeFilter === 'theoryPassed'){
             let result = arr.sort((a,b)=>{
-                if (a.exams[0].result === false) return -1;
-                if (a.exams[0].result === true) return 1;
+                if (a.exams[0].result === false) return 1;
+                if (a.exams[0].result === true) return -1;
             })
             // console.log(result)
             setStudents(result)

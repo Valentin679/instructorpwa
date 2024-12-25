@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Radio, DatePicker, Modal, TimePicker, Select, message} from 'antd';
 import dayjs from 'dayjs';
 import {addLesson} from "@/app/api/fetchLessons";
-import {changeCountLesson, getActiveStudents} from "@/app/api/fetchStudents";
+import {changeCountLesson, getActiveStudents, getStudents} from "@/app/api/fetchStudents";
 
 
 export default function AddLesson({setUpdate, update, success}) {
@@ -71,7 +71,7 @@ export default function AddLesson({setUpdate, update, success}) {
         getActiveStudents().then((res)=>{
             setStudentsList(res)
             const studentsArr = res.map(student => {
-                return {value: student._id, label: student.firstName}
+                return {value: student._id, label: student.lastName}
             })
             setStudentListForSelect(studentsArr)
         })
@@ -91,13 +91,13 @@ export default function AddLesson({setUpdate, update, success}) {
             <Modal title="Занятие" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                 <div className={'d-flex flex-column gap-2'}>
                     <div className={'d-flex flex-row gap-1 fontSize18'}>
-                        <DatePicker status={date ? "" : "error"} onChange={onChangeDate} needConfirm={false} format={'DD/MM'}/>
+                        <DatePicker status={date ? "" : "error"} onChange={onChangeDate} showNow={false} needConfirm={false} format={'DD/MM'}/>
                         <Button className={'fontSize18'} onClick={()=>{
                             setDate(dayjs().add(1, 'day').format('DD/MM'))
                         }}>Завтра</Button>
                     </div>
                     <div className={'d-flex flex-row gap-1.5 items-center fontSize18'}>
-                        <TimePicker status={time ? "" : "error"}  value={timeStart} onChange={onChangeTime} changeOnScroll needConfirm={false} format={format} minuteStep={15}/>
+                        <TimePicker status={time ? "" : "error"}  value={timeStart} onChange={onChangeTime} showNow={false} needConfirm={false} format={format} minuteStep={15}/>
                         <Radio.Group
                             optionType="button"
                             buttonStyle="solid"

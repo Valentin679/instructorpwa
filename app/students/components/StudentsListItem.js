@@ -26,7 +26,7 @@ export default function StudentsListItem({student}) {
                     <div className={'d-flex flex-row align-items-center gap-2'}>
                         <GroupTag group={student.group}/>
                         <p style={{fontSize: 20}}>
-                            {student.firstName} {student.lastName[0].toUpperCase()}. {student.surname[0].toUpperCase()}.
+                            {student.lastName} {student.firstName[0].toUpperCase()}. {student.surname[0].toUpperCase()}.
                         </p>
                     </div>
                     {student.exams ?
