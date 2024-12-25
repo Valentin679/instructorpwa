@@ -230,12 +230,16 @@ export default function AddStudent() {
             lastName,
             surname,
             phone,
-            group,
+            group: {
+              number: group,
+              year: 2024
+            },
             status,
             instructor,
             quantityPracticalLessons,
             exercise,
-            exams
+            exams,
+            active: true
           }
           console.log(data)
           addStudent(data).then(res => {
