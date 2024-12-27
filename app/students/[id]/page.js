@@ -7,6 +7,9 @@ import Image from 'next/image'
 import Grades from "@/app/students/[id]/Grades";
 import GoodTag from "@/app/students/components/Tags/goodTag";
 import GroupTag from "@/app/students/components/Tags/groupTag";
+import Avatar from "@/app/students/[id]/components/Avatar";
+import StudentData from "@/app/students/[id]/components/StudentData";
+import Loading from "@/app/components/Loading";
 
 export default function StudentProfile() {
 
@@ -21,33 +24,22 @@ export default function StudentProfile() {
 
     // console.log(student)
     if (!student) {
-        return <h1 className={'h-100'}>Loading</h1>
+        return <Loading/>
     } else {
         return (
             <div className={'d-flex flex-col h-100'}>
                 <div className={'d-flex flex-row gap-2 mb-2 p-1'}>
-                    <Image src={profilePic} alt={''}
-                           className={'w-25 h-100 object-cover'}/>
-                    <div style={{flexDirection: 'column', gap: 10}}>
-                        <div className={'d-flex flex-row gap-1'}>
-                            <p>{student.firstName}</p>
-                            <p>{student.lastName}</p>
-                            <p>{student.surname}</p>
-                            <GoodTag/>
-                        </div>
-                        <div>
-                            <p>Группа: <GroupTag group={student.group}/></p>
-                        </div>
-                    </div>
+                    <Avatar/>
+                    <StudentData firstName={student.firstName} lastName={student.lastName} surname={student.surname} group={student.group}/>
                 </div>
                 <div className={'h-100 overflow-y-scroll'}>
                     <button type="button" className={'btn btn-warning w-100'}
                             onClick={() => {
                                 isOpenGrades ? setIsOpenGrades(false) : setIsOpenGrades(true)
                             }}
-                    >Навыки
+                    >
+                        Навыки
                     </button>
-
                     <div className={isOpenGrades ? 'px-1' : 'h-0 overflow-y-hidden'}>
                         {
                             student.exercise.map((el, index) => {

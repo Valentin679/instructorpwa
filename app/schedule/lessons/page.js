@@ -9,6 +9,7 @@ import {deleteLesson, getLessonsByDate} from "@/app/api/fetchLessons";
 import Loading from "@/app/components/Loading";
 import {DeleteTwoTone} from "@ant-design/icons";
 import OneLesson from "@/app/schedule/lessons/OneLesson";
+import {DayBlock} from "@/app/schedule/lessons/DayBlock";
 
 dayjs.extend(toObject)
 dayjs.extend(weekday);
@@ -59,7 +60,6 @@ const localeObject = {
     }
 }
 dayjs.locale('ru', localeObject);
-let weekDays = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ',];
 
 export default function Lessons({success}) {
     const [messageApi, contextHolder] = message.useMessage();
@@ -70,8 +70,6 @@ export default function Lessons({success}) {
     const [update, setUpdate] = useState(false)
     const [loadLessons, setLoadLessons] = useState(false)
     const [lessons, setLessons] = useState([])
-    const startWeek = dayjs().weekday(0).toObject()
-    const endWeek = dayjs().weekday(6)
     const arr = []
 
 
@@ -131,24 +129,5 @@ export default function Lessons({success}) {
 }
 
 
-function DayBlock({day, month, nowDay, id, setActiveDate, activeDate, nowDate}) {
-    const dayWeek = dayjs(`${day}/${month + 1}`, 'DD/MM').day()
-    return (
 
-        <div id={id} style={{borderRadius: 7}}
-             className={`'d-flex flex-column px-1.5 border rounded' ${id === activeDate ? 'border-2 border-danger' : 'border-secondary'} `}
-             onClick={() => {
-                 setActiveDate(id)
-             }}
-        >
-            <div>
-                {nowDay === day ? <p className={'text-success'} style={{fontSize: 28, fontWeight: 'bold'}}>{day}</p> :
-                    <p style={{fontSize: 28}}>{day}</p>}
-            </div>
-            <div><p className={nowDay === day ? 'text-success' : ''}
-                    style={{fontSize: 20, textAlign: 'center'}}>{weekDays[dayWeek]}</p>
-            </div>
-        </div>
-    );
-}
 

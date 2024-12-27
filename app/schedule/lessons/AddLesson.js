@@ -1,9 +1,9 @@
 'use client'
 import React, {useEffect, useState} from 'react';
-import {Button, Radio, DatePicker, Modal, TimePicker, Select, message} from 'antd';
+import {Button, Radio, DatePicker, Modal, TimePicker, Select} from 'antd';
 import dayjs from 'dayjs';
 import {addLesson} from "@/app/api/fetchLessons";
-import {changeCountLesson, getActiveStudents, getStudents} from "@/app/api/fetchStudents";
+import {changeCountLesson, getActiveStudents} from "@/app/api/fetchStudents";
 
 
 export default function AddLesson({setUpdate, update, success}) {
@@ -80,7 +80,6 @@ export default function AddLesson({setUpdate, update, success}) {
         fetchingStudents ? fetchStudentsForSelect() : ''
     }, [fetchingStudents]);
 
-    // console.log(student)
     return (
 
         <div className={'d-flex flex-column fontSize18'}>
@@ -114,10 +113,7 @@ export default function AddLesson({setUpdate, update, success}) {
                                 fetchingStudents ? setFetchingStudents(false) : setFetchingStudents(true)
                             }}
                     >
-                        {/*<Select.Option value="Samvel">Самвел</Select.Option>*/}
                     </Select>
-                    {/*<TimePicker.RangePicker onChange={onChangeTime} defaultValue={[startTime, endTime]} format={format}*/}
-                    {/*                        minuteStep={15}/>*/}
                 </div>
             </Modal>
 

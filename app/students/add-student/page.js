@@ -201,7 +201,6 @@ export default function AddStudent() {
                 className={'w-100'}
                 onChange={(value, option) => {
                   if ("label" in option) {
-                    // @ts-ignore
                     setStatus({value, label: option.label})
                   }
                 }}
@@ -210,7 +209,6 @@ export default function AddStudent() {
                 className={'w-100'}
                 onChange={(value, option) => {
                   if ("label" in option) {
-                    // @ts-ignore
                     setInstructor({ value, label: option.label})
                   }
                 }}/>
