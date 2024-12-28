@@ -6,7 +6,7 @@ import {Tag} from "antd";
 
 export default function BadTag({point}) {
     return (
-        <Tag color="#f50">{point}</Tag>
+        <Tag style={{marginInlineEnd: 0}} color="#f50">{point}</Tag>
         // <div className={'bg-success text-danger px-2 py-0.5 rounded '}><p className={'text-sm'}>{point}</p></div>
     );
 }

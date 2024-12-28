@@ -3,6 +3,10 @@ import {Button, Checkbox, DatePicker, Input, Select, Space} from "antd";
 import {useEffect, useState} from "react";
 import {addStudent} from "@/app/api/fetchStudents";
 import { useRouter } from 'next/navigation'
+import AddDriveExams from "@/app/students/add-student/components/AddDriveExams";
+import DefaultInput from "@/app/students/add-student/components/DefaultInput";
+import TwoNumInput from "@/app/students/add-student/components/TwoNumInput";
+import PhoneNumberInput from "@/app/students/add-student/components/PhoneNumberInput";
 
 const statuses = [
   {
@@ -45,7 +49,7 @@ const exercise = [
   {
     slug: 'start',
     name: 'Начало движения',
-    level: 'Полностью освоен'
+    level: 'Не изучено'
   },
   {
     slug: 'trestle',
@@ -138,20 +142,6 @@ const exercise = [
     level: 'Не изучено'
   }
 ]
-const quantityPracticalLessons = 0
-
-let exams = [
-  {
-    exam: 'theory',
-    result : false,
-    date: ''
-  },
-  {
-    exam: 'drive',
-    result : false,
-    dates: []
-  }
-]
 
 
 export default function AddStudent() {
@@ -163,40 +153,33 @@ export default function AddStudent() {
   const [group, setGroup] = useState()
   const [instructor, setInstructor] = useState(instructorsList[0])
   const [status, setStatus] = useState(statuses[0])
+  const [quantityLessons, setQuantityLessons] = useState(0)
   const [theory, setTheory] = useState(false)
+  const [theoryDate, setTheoryDate] = useState(null)
+  const [firstDrive, setFirstDrive] = useState(null)
+  const [secondDrive, setSecondDrive] = useState(null)
+  const [thirdDrive, setThirdDrive] = useState(null)
 
   const onChangeTheoryDate = (date, dateString) => {
-    console.log(
-        // date,
-        dateString);
-    const jsdate = new Date(dateString)
-    console.log('js- ' + dateString)
+    setTheoryDate(dateString);
   }
 
 
   useEffect(() => {
-  }, [status, instructor, firstName, lastName, surname, theory]);
-  console.log(exams)
+    console.log('update')
+  }, [status, instructor, firstName, lastName, surname, theory, firstDrive, secondDrive, thirdDrive]);
+  // console.log(exams)
   return (
       <div className={'d-flex flex-column gap-2 px-1 items-center'}>
         <p>Введите данные ученика</p>
-        {/*<TextInput onChangeText={(text)=>{setFirstName(text)}} placeholder={'Фамилия'}></TextInput>*/}
-        <Input onChange={(e) => {
-          setLastName(e.target.value)
-        }} placeholder={'Фамилия'}></Input>
-        <Input onChange={(e) => {
-          setFirstName(e.target.value)
-        }} placeholder={'Имя'}></Input>
-        <Input onChange={(e) => {
-          setSurname(e.target.value)
-        }} placeholder={'Отчество'}></Input>
-        <Input onChange={(e) => {
-          setPhone('+7' + e.target.value)
-        }} prefix={'+7'} minLength={10} maxLength={10} placeholder={'Номер телефона'}></Input>
-        <Input onChange={(e) => {
-          setGroup(e.target.value)
-        }} maxLength={2} placeholder={'Номер группы'}></Input>
-
+        <DefaultInput placeholder={'Фамилия'} setStateValue={setLastName} stateValue={lastName}/>
+        <DefaultInput placeholder={'Имя'} setStateValue={setFirstName} stateValue={firstName}/>
+        <DefaultInput placeholder={'Отчество'} setStateValue={setSurname} stateValue={surname}/>
+        <PhoneNumberInput placeholder={'Номер телефона'} setStateValue={setPhone} stateValue={phone} />
+        <div className={'d-flex flex-row gap-1 w-100'}>
+          <TwoNumInput placeholder={'Номер группы'} setStateValue={setGroup} stateValue={group}/>
+          <TwoNumInput placeholder={'Количество занятий'} setStateValue={setQuantityLessons} stateValue={quantityLessons}/>
+        </div>
         <Select options={statuses} defaultValue={status}
                 className={'w-100'}
                 onChange={(value, option) => {
@@ -215,28 +198,55 @@ export default function AddStudent() {
         <div className={'w-100 d-flex items-center justify-content-around'}>
           <Checkbox onChange={(e) => {
             setTheory(e.target.checked)
-            exams[0].result = e.target.checked
+            // exams[0].result = e.target.checked
 
           }}>Теория сдана</Checkbox>
           <Space direction="vertical">
-            <DatePicker placeholder="Дата сдачи" onChange={onChangeTheoryDate} disabled={!exams[0].result} />
+            <DatePicker placeholder="Дата сдачи" onChange={onChangeTheoryDate} disabled={!theory} format={'DD/MM/YYYY'}/>
           </Space>
         </div>
+        <div className={'w-100 d-flex flex-col items-center justify-content-around'}>
+          Экзамены по вождению
+          <AddDriveExams attempt={1} setDrive={setFirstDrive}/>
+          <AddDriveExams attempt={2} setDrive={setSecondDrive}/>
+          <AddDriveExams attempt={3} setDrive={setThirdDrive}/>
+        </div>
         <Button type={'primary'} onClick={() => {
+          const driveExamsArray = []
+          if (firstDrive !== null) {
+            driveExamsArray.push(firstDrive)
+          }
+          if (secondDrive !== null) {
+            driveExamsArray.push(secondDrive)
+          }
+          if (thirdDrive !== null) {
+            driveExamsArray.push(thirdDrive)
+          }
           const data = {
             firstName,
             lastName,
             surname,
             phone,
             group: {
-              number: group,
+              number: Number(group),
               year: 2024
             },
             status,
             instructor,
-            quantityPracticalLessons,
+            quantityPracticalLessons: Number(quantityLessons),
             exercise,
-            exams,
+            exams: [
+              {
+                exam: 'theory',
+                result : true,
+                date: theoryDate
+              },
+              {
+                exam: 'drive',
+                result : false,
+                dates: driveExamsArray
+              }
+            ],
             active: true
           }
           console.log(data)

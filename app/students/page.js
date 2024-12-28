@@ -45,23 +45,22 @@ export default function Students() {
             })
             // console.log(result)
             setStudents(result)
-        }else if (activeFilter === 'alphabet'){
-            let result = arr.sort((a,b)=>{
+        } else if (activeFilter === 'alphabet') {
+            let result = arr.sort((a, b) => {
                 if (a.lastName > b.lastName) return 1;
                 if (a.lastName < b.lastName) return -1;
             })
             // console.log(result)
             setStudents(result)
-        }else if (activeFilter === 'additional'){
-            let result = arr.sort((a,b)=>{
+        } else if (activeFilter === 'additional') {
+            let result = arr.sort((a, b) => {
                 if (a.quantityPracticalLessons > b.quantityPracticalLessons) return -1;
                 if (a.quantityPracticalLessons < b.quantityPracticalLessons) return 1;
             })
             // console.log(result)
             setStudents(result)
-        }
-        else if (activeFilter === 'theoryPassed'){
-            let result = arr.sort((a,b)=>{
+        } else if (activeFilter === 'theoryPassed') {
+            let result = arr.sort((a, b) => {
                 if (a.exams[0].result === false) return 1;
                 if (a.exams[0].result === true) return -1;
             })
@@ -84,7 +83,6 @@ export default function Students() {
     }, [activeStudents, activeFilter]);
 
 
-
     const studentsList = students.map(student => (
         <StudentsListItem key={student._id} student={student}/>
     ))
@@ -92,7 +90,6 @@ export default function Students() {
         return <Loading style={{margin: '0 auto'}}/>
     } else {
         return (
-            //// Сортировка по группе, теории, вождению, алфавит, дп
             <div className={'h-100 d-flex flex-column gap-2 '}>
                 <div>
                     <Radio.Group onChange={onChangeActive} block options={optionsActive} defaultValue={activeStudents}
@@ -112,8 +109,6 @@ export default function Students() {
                     }}><UserAddOutlined/></Button>
                 </div>
                 {studentsList}
-                {/*<Link href={'students/add-student'} className={'btn-primary'}>Добавить ученика</Link>*/}
-
             </div>
         );
     }
