@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc836874-f9ee-4042-b35b-1e31346abff9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/exams/add-exam/StudentListOnExam.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/exams/add-exam/StudentListOnExamItem.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/exams/functions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/fetchExams.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/fetchExams.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/exams/add-exam/StudentListOnExam.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/exams/add-exam/StudentListOnExam.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/exams/add-exam/StudentListOnExamItem.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/exams/add-exam/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/exams/add-exam/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/exams/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/exams/page.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,23 +42,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Projects/instructorpwa/app/exams/add-exam",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.dev.executor": "Run",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PhpStorm 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Projects/instructorpwa/app/exams/add-exam&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.dev.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\PhpStorm 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Projects\instructorpwa\app\exams\add-exam" />
@@ -108,6 +109,7 @@
       <workItem from="1735066447271" duration="4469000" />
       <workItem from="1735141807738" duration="14880000" />
       <workItem from="1735403007615" duration="12514000" />
+      <workItem from="1735501628374" duration="5161000" />
     </task>
     <servers />
   </component>

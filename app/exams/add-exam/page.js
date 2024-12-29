@@ -36,7 +36,8 @@ export default function AddExam() {
         setDate(dateString)
     }
 
-    const findStudentById = () => {
+    const findStudentById = (selectedItems) => {
+
         let arr = []
         selectedItems.map(el => {
             studentsList.find((student) => {
@@ -45,7 +46,7 @@ export default function AddExam() {
                 }
             })
         })
-        console.log(arr)
+        // console.log(arr)
         setSelectedStudents(arr)
     }
 
@@ -53,17 +54,21 @@ export default function AddExam() {
         fetchingStudents ? fetchStudentsForSelect() : ''
     }, [fetchingStudents]);
     useEffect(() => {
-        findStudentById()
+        findStudentById(selectedItems)
     }, [selectedItems]);
+    useEffect(() => {
+
+    }, [selectedStudents]);
 
     return (
         <div className={'d-flex flex-column gap-3 p-2 items-center'}>
-            <DatePicker style={{width: '100%',}} status={date ? "" : "error"} size={"large"} onChange={onChangeDate} defaultValue={date}
+            <DatePicker style={{width: '100%',}} status={date ? "" : "error"} size={"large"} onChange={onChangeDate}
+                        defaultValue={date}
                         showNow={false} needConfirm={false} format={'DD/MM/YYYY'} placeholder='Выберите дату экзамена'/>
 
             <Select
                 size={"large"}
-                defaultValue={selectedItems}
+                defaultValue={selectedStudents}
                 mode="multiple"
                 placeholder='Выберите кандидатов'
                 maxTagCount='responsive'
@@ -77,26 +82,20 @@ export default function AddExam() {
                 onChange={setSelectedItems}
                 options={studentListForSelect}
             />
-            {selectedStudents.length !== 0 ? <StudentListOnExam selectedItems={selectedItems}
-            selectedStudents={selectedStudents}
-            /> : ''}
 
-            {/*<div className={'d-flex flex-col w-100 gap-2'}>*/}
-            {/*    <h5>Список кандидатов:</h5>*/}
-            {/*    {selectedStudents.length === 0 ? <p>Нет кандидатов...</p> :*/}
-            {/*        selectedStudents.map((student, index) => <StudentListOnExam key={index}*/}
-            {/*                                                                    student={student}*/}
-            {/*                                                                    index={index}*/}
-            {/*                                                                    selectedItems={selectedItems}*/}
-            {/*        />)}*/}
-            {/*</div>*/}
+
+            <div className={'d-flex flex-col w-100 gap-2'}>
+                <h5>Список кандидатов:</h5>
+                {selectedStudents?.length !== 0 ? <StudentListOnExam selectedStudents={selectedStudents}/> : 'Нет кандидатов...'}
+            </div>
 
 
             <Button type={'primary'} onClick={() => {
                 const data = {
                     date,
-                    students: selectedItems,
-                    inspector: 'Не известно'
+                    students: selectedStudents,
+                    inspector: 'Не известно',
+                    completed: false
                 }
                 console.log(data)
                 addExam(data).then(res => {

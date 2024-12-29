@@ -3,8 +3,8 @@ const instance = {
     local: 'http://localhost:8800/'
 }
 
-export async function getStudents() {
-    const response = await fetch(`${instance.url}api/students/category/b`, {
+export async function getExams() {
+    const response = await fetch(`${instance.url}api/exams/b/`, {
         method: "GET",
         headers: { "Accept": "application/json" }
     });

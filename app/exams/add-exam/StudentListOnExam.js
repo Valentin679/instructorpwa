@@ -1,16 +1,14 @@
-import {RxCross1} from "react-icons/rx";
+export default function StudentListOnExam({selectedStudents}) {
 
-export default function StudentListOnExam({selectedStudents, selectedItems}) {
-return (
-    <div className={'d-flex flex-col w-100 gap-2'}>
-        <h5>Список кандидатов:</h5>
-        {selectedStudents.length === 0 ? <p>Нет кандидатов...</p> :
-            selectedStudents.map((student, index) => <StudentListOnExam key={index}
-                                                                        student={student}
-                                                                        index={index}
-                                                                        selectedItems={selectedItems}
-            />)}
-    </div>
-
-);
+    return (
+        <>
+            {selectedStudents.map((student, index) => {
+                return <div
+                    className={'d-flex flex-row w-100 bg-light p-2 rounded-2 items-center justify-content-between'}>
+                    <div>{student.lastName + ' ' + student.firstName + ' ' + student.surname}</div>
+                    <div>{student.exams[1].dates.length + 1} раз</div>
+                </div>
+            })}
+        </>
+    )
 }
