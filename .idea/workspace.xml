@@ -5,25 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc836874-f9ee-4042-b35b-1e31346abff9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/students/add-student/components/AddDriveExams.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/add-student/components/DefaultInput.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/add-student/components/PhoneNumberInput.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/add-student/components/TwoNumInput.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/components/item-components/ExamsBlock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/components/item-components/ExerBlock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/components/item-components/StudentNameBlock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/students/components/item-components/Tags/startTag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/exams/add-exam/StudentListOnExam.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/exams/add-exam/StudentListOnExamItem.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/exams/functions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/[id]/components/StudentData.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/[id]/components/StudentData.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/[id]/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/[id]/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/add-student/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/add-student/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/components/StudentsListItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/components/StudentsListItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/components/Tags/badTag.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/components/item-components/Tags/badTag.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/components/Tags/endTag.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/components/item-components/Tags/endTag.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/components/Tags/goodTag.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/components/item-components/Tags/goodTag.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/components/Tags/groupTag.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/components/item-components/Tags/groupTag.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/components/Tags/startTag.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/components/item-components/QuantityLessonsBlock.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/students/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/students/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/exams/add-exam/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/exams/add-exam/page.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +47,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Projects/instructorpwa/app/students/add-student/components",
+    "last_opened_file_path": "C:/Projects/instructorpwa/app/exams/add-exam",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -74,11 +60,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\instructorpwa\app\exams\add-exam" />
       <recent name="C:\Projects\instructorpwa\app\students\add-student\components" />
       <recent name="C:\Projects\instructorpwa\app\students\components\item-components" />
       <recent name="C:\Projects\instructorpwa\app\schedule\lessons\components" />
       <recent name="C:\Projects\instructorpwa\app\students\[id]\components" />
-      <recent name="C:\Projects\instructorpwa\app\api" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Projects\instructorpwa\app\students\components\item-components" />
