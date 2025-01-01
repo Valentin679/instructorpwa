@@ -1,29 +1,36 @@
 import Link from "next/link";
-import GoodTag from "@/app/students/components/item-components/Tags/goodTag";
-import StartTag from "@/app/students/components/item-components/Tags/startTag";
+
 import GroupTag from "@/app/students/components/item-components/Tags/groupTag";
 import QuantityLessonsBlock from "@/app/students/components/item-components/QuantityLessonsBlock";
 import ExerBlock from "@/app/students/components/item-components/ExerBlock";
 import StudentNameBlock from "@/app/students/components/item-components/StudentNameBlock";
 import ExamsBlock from "@/app/students/components/item-components/ExamsBlock";
+import React, {useRef, } from "react";
+import SwipeEditBlock from "@/app/components/SwipeEditBlock";
 
 export default function StudentsListItem({student}) {
+    const ref = useRef();
     return (
-        <div className={'d-flex flex-col justify-content-between align-items-center w-100 p-2'}>
-            <Link href={`/students/${student._id}`} className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1 '}>
-                <div className={'d-flex flex-row align-items-center gap-2'}>
-                    <GroupTag group={student.group}/>
-                    <StudentNameBlock lastName={student.lastName} firstName={student.firstName} surname={student.surname}/>
-                </div>
-                <ExamsBlock exams={student.exams}/>
+            <SwipeEditBlock ref={ref} studetntId={student._id}>
+
+                    <Link href={`/students/${student._id}`}
+                          className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1 '}>
+                        <div className={'d-flex flex-row align-items-center gap-2'}>
+                            <GroupTag group={student.group}/>
+                            <StudentNameBlock lastName={student.lastName} firstName={student.firstName}
+                                              surname={student.surname}/>
+                        </div>
+                        <ExamsBlock exams={student.exams}/>
 
 
-            </Link>
-            <div className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1'}>
-                <ExerBlock exercise={student.exercise}/>
-                <QuantityLessonsBlock quantity={student.quantityPracticalLessons}/>
-            </div>
-        </div>
+                    </Link>
+                    <div className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1'}>
+                        <ExerBlock exercise={student.exercise}/>
+                        <QuantityLessonsBlock quantity={student.quantityPracticalLessons}/>
+                    </div>
+
+
+            </SwipeEditBlock>
     );
 
 }

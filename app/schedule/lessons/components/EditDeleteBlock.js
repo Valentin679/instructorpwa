@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, message, Space, Spin} from 'antd';
 import {DeleteTwoTone, EditTwoTone} from "@ant-design/icons";
-import {deleteLesson} from "@/app/api/fetchExams";
+import {deleteLesson} from "@/app/api/fetchLessons";
 import {changeCountLesson} from "@/app/api/fetchStudents";
 import styles from './../lessons.module.css'
 

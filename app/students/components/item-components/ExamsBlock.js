@@ -5,6 +5,7 @@ import {Tooltip} from "antd";
 import BadTag from "@/app/students/components/item-components/Tags/badTag";
 
 export default function ExamsBlock({exams}) {
+    // console.log(exams)
     const theory = exams[0]
     const drive = exams[1]
     const driveExamsCount = drive.dates?.length
@@ -22,7 +23,6 @@ export default function ExamsBlock({exams}) {
             return <StartTag point={'В'}/>
         }
         if (driveExamsCount === 1) {
-            console.log('111')
             return <BadTag point={'В'}/>
 
         }

@@ -12,8 +12,8 @@ export async function getExams() {
         return await response.json()
     }
 }
-export async function getLessonsByDate(date) {
-    const response = await fetch(`${instance.url}api/lessons/b/date/`+date, {
+export async function getExamById(id) {
+    const response = await fetch(`${instance.url}api/exams/b/`+id, {
         method: "GET",
         headers: { "Accept": "application/json" }
     });
@@ -33,7 +33,7 @@ export const addExam = async (data) => {
         return await response.json()
     }
 }
-export const deleteLesson = async (id) => {
+export const deleteExam = async (id) => {
     await fetch(`${instance.url}api/lessons/b/` + id, {
         method: 'DELETE',
         headers: {
