@@ -1,8 +1,12 @@
 import React, {useEffect, useState, createContext} from 'react';
 import DifferenceContext from "@/app/context/DifferenceContext";
+import {RiDeleteBin2Line} from "react-icons/ri";
+import {deleteStudent} from "@/app/api/fetchStudents";
+import {useRouter} from "next/navigation";
 
 
 export default function SwipeEditBlock({children, ref, studetntId}) {
+    const router = useRouter()
     const [openRight, setOpenRight] = useState(false)
     const [touchDifference, setTouchDifference] = useState(0)
 
@@ -55,7 +59,17 @@ export default function SwipeEditBlock({children, ref, studetntId}) {
                 </div>
                 <div
                     style={{position: "relative", width: touchDifference}}
-                    className={'bg-warning'}><p className={'p-2'}>{studetntId}</p>
+                    className={'bg-danger text-white d-flex justify-center items-center text-2xl text-center align-middle'}
+                    onClick={() => {
+                        deleteStudent(studetntId).then(() => {
+                            router.refresh()
+                        })
+                    }
+                    }
+                >
+                    {/*<p className={'p-2'}>*/}
+                    <RiDeleteBin2Line className={'relative align-middle'}/>
+                    {/*</p>*/}
                 </div>
             </div>
         </DifferenceContext.Provider>

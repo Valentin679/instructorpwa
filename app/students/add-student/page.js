@@ -233,6 +233,7 @@ export default function AddStudent() {
             },
             status,
             instructor,
+            lessonDuration: 3,
             quantityPracticalLessons: Number(quantityLessons),
             exercise,
             exams: [
@@ -251,7 +252,7 @@ export default function AddStudent() {
           }
           console.log(data)
           addStudent(data).then(res => {
-            console.log(res)
+            // console.log(res)
             router.push('/students')
           })
         }}>Добавить ученика</Button>

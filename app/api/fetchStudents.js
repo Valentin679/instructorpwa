@@ -46,6 +46,15 @@ export const addStudent = async (data) => {
     }
 }
 
+export const deleteStudent = async (id) => {
+    await fetch(`${instance.url}api/students/category/b/` + id, {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json; charset=utf-8'
+        }
+    })
+}
+
 export const editStudentGrades = async (id, slug, level, name, gradeIndex) => {
     await fetch(`${instance.url}api/students/category/b/edit`, {
         method: 'PUT',
@@ -90,11 +99,3 @@ export const putStudent = async (changedMaterialsId, title, category, price) => 
     })
 }
 
-export const deleteMaterials = async (id) => {
-    await fetch('https://ratapi.vercel.app/api/materials/' + id, {
-        method: 'DELETE',
-        headers: {
-            'Content-type': 'application/json; charset=utf-8'
-        }
-    })
-}

@@ -14,7 +14,7 @@ import {DayBlock} from "@/app/schedule/lessons/DayBlock";
 dayjs.extend(toObject)
 dayjs.extend(weekday);
 
-const localeObject = {
+export const localeObject = {
     name: 'ru', // имя String
     weekdays: 'Domingo_Lunes ...'.split('_'), // дни недели Array
     weekdaysShort: 'Sun_M'.split('_'), // НЕОБЯЗАТЕЛЬНО, короткое наименование дней недели Array, используйте первые три буквы, если это не предусмотрено

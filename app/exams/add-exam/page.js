@@ -21,7 +21,7 @@ export default function AddExam() {
 
     const fetchStudentsForSelect = () => {
         getActiveStudents().then((res) => {
-            const filteredByDate = filterExamWindow(res)
+            const filteredByDate = filterExamWindow(res, date)
             setStudentsList(filteredByDate)
             const studentsArr = filteredByDate.map(student => {
                 return {

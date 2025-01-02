@@ -22,14 +22,24 @@ export default function ExamsBlock({exams}) {
         if (theory.result && driveExamsCount === 0) {
             return <StartTag point={'В'}/>
         }
-        if (driveExamsCount === 1) {
+        if (driveExamsCount === 1 && drive.result === false) {
             return <BadTag point={'В'}/>
-
         }
-        if (driveExamsCount === 2) {
+        if (driveExamsCount === 1 && drive.result === true) {
+            return <GoodTag point={'В'}/>
+        }
+        if (driveExamsCount === 2 && drive.result === false) {
             return <><BadTag point={'В'}/><BadTag point={'В'}/></>
         }
-
+        if (driveExamsCount === 2 && drive.result === true) {
+            return <><BadTag point={'В'}/><GoodTag point={'В'}/></>
+        }
+        if (driveExamsCount === 3 && drive.result === false) {
+            return <><BadTag point={'В'}/><BadTag point={'В'}/><BadTag point={'В'}/></>
+        }
+        if (driveExamsCount === 3 && drive.result === true) {
+            return <><BadTag point={'В'}/><BadTag point={'В'}/><GoodTag point={'В'}/></>
+        }
     }
 
 

@@ -56,6 +56,7 @@ export default function AddLesson({setUpdate, update, success}) {
         } else if (lessonDuration === 2) {
             newTime = dayjs(date, 'HH:mm').add(1, "hour").add(15, 'minute').format('HH:mm')
         }
+        console.log([dateString])
         setTime([dateString, newTime])
     }
     const onChangeLessonDuration = (e) => {
@@ -64,6 +65,7 @@ export default function AddLesson({setUpdate, update, success}) {
 
     const onChangeStudent = (value) => {
         const result = studentsList.find(student => student._id === value)
+        student.lessonDuration ? setLessonDuration(student.lessonDuration) : setLessonDuration(1)
         setStudent(result)
     }
 
