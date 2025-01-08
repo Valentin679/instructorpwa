@@ -10,24 +10,17 @@ import SwipeHOC from "@/app/components/SwipeHOC";
 export default function ExamsItem({exam}) {
 
     const refBlock = useRef();
-    const refLeftMenu = useRef();
     const refRightMenu = useRef();
     const refContainer = useRef();
 
     return (
-        <SwipeHOC refLink={refBlock} refRightMenu={refRightMenu} refLeftMenu={refLeftMenu} refContainer={refContainer}>
+        <SwipeHOC refLink={refBlock} refRightMenu={refRightMenu} refContainer={refContainer}>
             <div ref={refContainer} className={'d-flex flex-row overflow-hidden'}>
-                <div ref={refLeftMenu} style={{float: "right", width: 0, overflow: "hidden"}}>
-                    <div>
-                        l1
-                    </div>
-                </div>
-                <div
-                    ref={refBlock}
-                    className={'d-flex flex-col p-3 bg-light border-secondary border-bottom position-relative w-100'}>
+                <div ref={refBlock}
+                    className={'d-flex p-3 bg-light border-bottom position-relative w-100'}>
                     <p>{exam.date}</p>
                 </div>
-                <div ref={refRightMenu} style={{float: "left", width: 0, overflow: "hidden", position: "relative",}}
+                <div ref={refRightMenu} style={{float: "left", width: 0, overflow: "hidden", position: "relative"}}
                      className={' d-flex flex-row justify-between items-center text-center'}
                 >
                     <div className={'d-flex items-center justify-center bg-amber-600 h-100 border-right border-secondary w-100 '}>

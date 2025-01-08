@@ -45,7 +45,7 @@ export default function SwipeEditBlock({children, ref, studetntId}) {
     }, [openRight]);
     useEffect(() => {
     }, [touchDifference]);
-    console.log(touchDifference)
+    // console.log(touchDifference)
     return (
         <DifferenceContext.Provider value={touchDifference}>
             <div className={'d-flex flex-row'}

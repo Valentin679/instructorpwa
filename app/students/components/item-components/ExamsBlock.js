@@ -1,11 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import GoodTag from "@/app/students/components/item-components/Tags/goodTag";
 import StartTag from "@/app/students/components/item-components/Tags/startTag";
 import {Tooltip} from "antd";
 import BadTag from "@/app/students/components/item-components/Tags/badTag";
+import NowDateContext from "@/app/context/NowDateContext";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
+
+// узнавать сегодняшнюю дату и сравнивать с датой последней записи
+// если запись есть больше сегодняшней даты, то добавлять старттег
+
 
 export default function ExamsBlock({exams}) {
-    // console.log(exams)
     const theory = exams[0]
     const drive = exams[1]
     const driveExamsCount = drive.dates?.length
@@ -23,19 +31,32 @@ export default function ExamsBlock({exams}) {
             return <StartTag point={'В'}/>
         }
         if (driveExamsCount === 1 && drive.result === false) {
+            if(dayjs().isBefore(drive.dates[1])){
+                return <StartTag point={'В'}/>
+            }else {
             return <BadTag point={'В'}/>
+            }
         }
         if (driveExamsCount === 1 && drive.result === true) {
             return <GoodTag point={'В'}/>
         }
         if (driveExamsCount === 2 && drive.result === false) {
-            return <><BadTag point={'В'}/><BadTag point={'В'}/></>
+            if(dayjs().isBefore(drive.dates[1])){
+                return <><BadTag point={'В'}/><BadTag point={'В'}/></>
+
+            }else {
+                return <><BadTag point={'В'}/><StartTag point={'В'}/></>
+            }
         }
         if (driveExamsCount === 2 && drive.result === true) {
             return <><BadTag point={'В'}/><GoodTag point={'В'}/></>
         }
         if (driveExamsCount === 3 && drive.result === false) {
-            return <><BadTag point={'В'}/><BadTag point={'В'}/><BadTag point={'В'}/></>
+            if(dayjs().isBefore(drive.dates[2])){
+                return <><BadTag point={'В'}/><BadTag point={'В'}/><BadTag point={'В'}/></>
+            }else {
+                return <><BadTag point={'В'}/><BadTag point={'В'}/><StartTag point={'В'}/></>
+            }
         }
         if (driveExamsCount === 3 && drive.result === true) {
             return <><BadTag point={'В'}/><BadTag point={'В'}/><GoodTag point={'В'}/></>
@@ -47,19 +68,7 @@ return (
     <> {exams ?
         <div className={'d-flex flex-row gap-0.5'}>
             {theoryExam()}
-            {/*{exams[0].result ?*/}
-            {/*    <Tooltip title={exams[0].date} color={'green'}>*/}
-            {/*        <GoodTag point={'Т'}/>*/}
-            {/*    </Tooltip>*/}
-            {/*    : <StartTag point={'Т'}/>}*/}
             {driveExam()}
-            {/*{exams[0].result ?*/}
-            {/*    !exams[1].result && exams[1].dates.length === 0 ? <StartTag point={'В'}/> :*/}
-            {/*        exams[1].dates.length === 1 ?*/}
-            {/*            <BadTag point={'В'}/> : exams[1].dates.length === 2 ?*/}
-            {/*                <div><BadTag point={'В'}/> <BadTag point={'В'}/></div> : null :*/}
-            {/*    null*/}
-            {/*}*/}
 
         </div> :
         ''}

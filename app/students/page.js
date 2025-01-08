@@ -7,6 +7,8 @@ import {Button, Select} from "antd";
 import Loading from "@/app/components/Loading";
 import {Radio} from 'antd';
 import {UserAddOutlined} from "@ant-design/icons";
+import NowDateContext from "@/app/context/NowDateContext";
+import dayjs from "dayjs";
 
 const optionsActive = [
     {label: 'Активные', value: true},
@@ -108,7 +110,9 @@ export default function Students() {
                         router.push('/students/add-student')
                     }}><UserAddOutlined/></Button>
                 </div>
+                <NowDateContext.Provider value={dayjs()}>
                 {studentsList}
+                </NowDateContext.Provider>
             </div>
         );
     }

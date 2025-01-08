@@ -17,6 +17,7 @@ export default function SwipeHOC({children, refLink, refLeftMenu, refRightMenu, 
             touchStartX = e.changedTouches[0].pageX
         })
         refLink.current.addEventListener('touchmove', (e) => {
+            let width = WIDTH_MENU * refRightMenu.current.childElementCount
             let rightMenuWidth = Number(refRightMenu.current.style.width.slice(0, -2))
             if (touchStartX > defWidth - fiveHalf && openRight === false) {
                 touchMove = e.changedTouches[0].pageX
@@ -31,14 +32,25 @@ export default function SwipeHOC({children, refLink, refLeftMenu, refRightMenu, 
                 refContainer.current.style.width = defWidth - diff + rightMenuWidth + 'px'
                 refLink.current.style.right = rightMenuWidth + diff + 'px'
                 refRightMenu.current.style.right = rightMenuWidth + diff + 'px'
+                // console.log(diff)
+                if (diff < -50) {
+                    refLink.current.style.right = 0 + 'px'
+                }
+                if (diff > 0) {
+                    refContainer.current.style.width = defWidth + rightMenuWidth + 'px'
+                    refLink.current.style.right = rightMenuWidth + 'px'
+                    refRightMenu.current.style.right = width + 'px'
+                }
+
                 refRightMenu.current.style.width = '0 px'
+                setOpenRight(false)
             }
         })
         refLink.current.addEventListener('touchend', (e) => {
             let rightMenuWidth = Number(refRightMenu.current.style.width.slice(0, -2))
-            let leftMenuWidth = Number(refLeftMenu.current.style.width.slice(0, -2))
-            if (rightMenuWidth === 0 || leftMenuWidth === 0) {
-                // console.log('меня не двигали')
+            // let leftMenuWidth = Number(refLeftMenu.current.style.width.slice(0, -2))
+            if (rightMenuWidth === 0) {
+                setOpenRight(false)
             } else if (50 > rightMenuWidth > 0) {
                 refRightMenu.current.style.width = 0
                 refLink.current.style.right = 0
@@ -52,10 +64,11 @@ export default function SwipeHOC({children, refLink, refLeftMenu, refRightMenu, 
                 setOpenRight(false)
             } else if (rightMenuWidth > 50) {
                 let width = WIDTH_MENU * refRightMenu.current.childElementCount
+                // console.log(width)
                 refContainer.current.style.width = defWidth +  width  +'px'
-                refLink.current.style.right = 100 + 'px'
-                refRightMenu.current.style.width = 100 + 'px'
-                refRightMenu.current.style.right = 100 + 'px'
+                refLink.current.style.right = width + 'px'
+                refRightMenu.current.style.width = width + 'px'
+                refRightMenu.current.style.right = width + 'px'
                 setOpenRight(true)
             }
         })
