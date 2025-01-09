@@ -34,13 +34,25 @@ export const addExam = async (data) => {
     }
 }
 export const deleteExam = async (id) => {
-    await fetch(`${instance.url}api/lessons/b/` + id, {
+    await fetch(`${instance.url}api/exams/b/` + id, {
         method: 'DELETE',
         headers: {
             'Content-type': 'application/json; charset=utf-8'
         }
     })
 }
+
+export const signUpExam = async (body) => {
+    await fetch(`${instance.local}api/exams/b/sign-up`, {
+        method: 'PUT',
+        //
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json; charset=utf-8'
+        }
+    })
+}
+
 // export const editStudentGrades = async (id, slug, level, name, gradeIndex) => {
 //     await fetch(`${instance.url}api/students/category/b/edit`, {
 //         method: 'PUT',

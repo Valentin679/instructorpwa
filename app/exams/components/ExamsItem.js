@@ -1,10 +1,5 @@
 'use client'
-import {UserAddOutlined} from "@ant-design/icons";
-import {Button} from "antd";
-import {useRouter} from 'next/navigation'
-import {useEffect, useRef, useState} from "react";
-import {getExams} from "@/app/api/fetchExams";
-import Link from "next/link";
+import {useRef} from "react";
 import SwipeHOC from "@/app/components/SwipeHOC";
 
 export default function ExamsItem({exam}) {

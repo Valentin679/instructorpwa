@@ -82,20 +82,25 @@ export const changeCountLesson = async (id, value) => {
 }
 
 
-export const putStudent = async (changedMaterialsId, title, category, price) => {
-    await fetch('http://localhost:8800/api/students/category/b', {
+export const editExamResultForStudent = async (id, body) => {
+    await fetch(`${instance.url}api/students/category/b/exam-result`, {
         method: 'PUT',
         //
         body: JSON.stringify({
-            oldTitle: changedMaterialsId,
-            title: title,
-            category: category.value,
-            categoryTitle: category.label,
-            price: price
+            id, body
         }),
         headers: {
             'Content-type': 'application/json; charset=utf-8'
         }
     })
 }
-
+export const signUpForExam = async (body) => {
+    await fetch(`${instance.local}api/students/category/b/sign-up-for-exam`, {
+        method: 'PUT',
+        //
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json; charset=utf-8'
+        }
+    })
+}

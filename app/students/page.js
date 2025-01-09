@@ -1,6 +1,6 @@
 'use client'
 import React, {useEffect, useState} from "react";
-import {getActiveStudents, getInactiveStudents, getStudents} from "@/app/api/fetchStudents";
+import {getActiveStudents, getInactiveStudents} from "@/app/api/fetchStudents";
 import StudentsListItem from "@/app/students/components/StudentsListItem";
 import {useRouter} from 'next/navigation'
 import {Button, Select} from "antd";
@@ -83,7 +83,7 @@ export default function Students() {
             }
         )
     }, [activeStudents, activeFilter]);
-
+console.log(students)
 
     const studentsList = students.map(student => (
         <StudentsListItem key={student._id} student={student}/>

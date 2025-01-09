@@ -8,7 +8,9 @@ import dayjs from "dayjs";
 import {filterExamWindow} from "@/app/exams/functions";
 import StudentListOnExam from "@/app/exams/add-exam/StudentListOnExam";
 
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
+dayjs.extend(customParseFormat);
 export default function AddExam() {
     const router = useRouter()
 

@@ -1,8 +1,11 @@
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
 
 export const filterExamWindow = (students, date) => {
     const nowDate = dayjs(date, 'DD/MM/YYYY')
-    // console.log(students)
+    console.log(students)
     const filtered = students.filter(student => {
         if(student.exams[0].result === false) {
             return null }
@@ -11,7 +14,7 @@ export const filterExamWindow = (students, date) => {
         }
         else if (student.exams[1].dates.length < 3){
 
-            const lastExamDate = dayjs(student.exams[1].dates.at(-1)).format('DD/MM/YYYY')
+            const lastExamDate = dayjs(student.exams[1].dates.at(-1), 'DD/MM/YYYY')
 
             if (nowDate.diff(lastExamDate, 'day') > 7) {
                 return student
@@ -19,7 +22,7 @@ export const filterExamWindow = (students, date) => {
             else {return null}
         }
         else if (student.exams[1].dates.length >= 3) {
-            const lastExamDate = dayjs(student.exams[1].dates.at(-1)).format('DD/MM/YYYY')
+            const lastExamDate = dayjs(student.exams[1].dates.at(-1),'DD/MM/YYYY' )
             if (nowDate.diff(lastExamDate, 'day') > 30) {
                 return student
             }
