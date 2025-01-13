@@ -1,9 +1,10 @@
 'use client'
-import React from 'react';
-import {ConfigProvider, message, TimePicker} from 'antd';
+import React, {useContext} from 'react';
+import {Button, ConfigProvider, message, TimePicker} from 'antd';
 import dayjs from 'dayjs';
 import Slots from "@/app/schedule/slots/page";
 import Lessons from "@/app/schedule/lessons/page";
+import StudentsContext from "@/app/context/StudentsContext";
 
 
 export default function Schedule() {
@@ -14,7 +15,7 @@ export default function Schedule() {
             content: contentText,
         });
     };
-
+    const students = useContext(StudentsContext)
     return (
 
         <div className={'d-flex flex-column fontSize18'} >
@@ -22,6 +23,9 @@ export default function Schedule() {
             <div style={{minHeight: '100%'}}>Расписание</div>
             <Lessons success={success}/>
             {/*<Slots/>*/}
+            {/*<Button onClick={()=>{*/}
+            {/*    console.log(students)*/}
+            {/*}}>ffff</Button>*/}
         </div>
     );
 }

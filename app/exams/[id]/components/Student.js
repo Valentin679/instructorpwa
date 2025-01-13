@@ -1,99 +1,92 @@
 'use client'
-import {useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import Loading from "@/app/components/Loading";
+import {editExamResultForStudent, editExams} from "@/app/api/fetchStudents";
+import StudentsContext from "@/app/context/StudentsContext";
+import {Button} from "antd";
 
-export default function Student({studentData, examDate, index, cancelExam, confirmExam}) {
+export default function Student({studentData, index, examDate}) {
     const [student, setStudent] = useState(studentData)
-    const [confirmPresence, setConfirmPresence] = useState(false)
+    const {students, setStudents} = useContext(StudentsContext)
+    const [goodExamResult, setGoodExamResult] = useState(studentData.exams[1].result)
     const refContainer = useRef();
     const refBlock = useRef();
-    const refRightMenu = useRef();
+    const [update, setUpdate] = useState(false)
 
-    function ConfirmPresence() {
-        let driveExams = student.exams[1]
-        let examDateText = '12/12/2024'
-        let res = driveExams.dates?.find(exam => exam === examDate)
-        if (res !== undefined) {
-            console.log(student.firstName + ' записан')
-            setConfirmPresence(true)
-        }
+    function goodExam() {
+        student.exams[1].result = true
+        editExamResultForStudent(student._id, student.exams).then((res) => {
+                refBlock.current.style.background = 'green'
+                setGoodExamResult(true)
+            }
+        )
+    }
+
+    function cancelExam(id) {
+        let number
+        console.log(students)
+        students.find((student, index) => {
+            if (student._id === id) {
+                console.log(index)
+                number = index
+            }
+        })
+        const currentStudent = students[number]
+        console.log(currentStudent)
+        currentStudent.exams[1].dates.map((date, index) => {
+                console.log('date - ' + date)
+                if (date === examDate) {
+                    console.log(true)
+                    currentStudent.exams[1].dates.splice(index, 1)
+                }
+                console.log(currentStudent)
+                editExams(currentStudent._id, currentStudent.exams).then(res=>{
+                    // students[number] = currentStudent
+                    // setStudents(students)
+                    update ? setUpdate(false) : setUpdate(true)
+                })
+            }
+        )
     }
 
     useEffect(() => {
-        ConfirmPresence()
-    }, [confirmPresence]);
 
+    }, [update]);
+    // console.log(goodExamResult)
 
     if (!student) {
         return <Loading/>
     } else {
         return (
 
-            // <SwipeHOC refLink={refBlock} refRightMenu={refRightMenu} refContainer={refContainer}>
             <div ref={refContainer} className={'d-flex flex-row overflow-hidden'}>
-                <div ref={refBlock}
+                <div ref={refBlock} style={goodExamResult ? {background: "green"} : {background: "none"}}
                      className={'d-flex p-3 bg-light border-bottom w-100 position-relative'}>
                     <p>
                         {student.firstName + ' ' + student.lastName + ' ' + student.surname}
                     </p>
 
                 </div>
-                <div className={'d-flex text-sm'}>
-                    {!confirmPresence ? <div
-                        className={'d-flex items-center justify-center bg-green-700 h-100 border-right border-secondary px-1 text-white '}
-                        onClick={() => {
-                            console.log(' буду на экзамене')
-                            confirmExam(index)
-                            setConfirmPresence(true)
-                            //ничего не делать
-                        }}
-                    >Подтв.</div> : ''}
-                    <div
-                        className={'d-flex items-center justify-center bg-red-700 h-100 border-right border-secondary px-1 text-white '}
-                        onClick={() => {
-                            cancelExam(index)
-                        }}
-                    >Отмена
-                    </div>
-                </div>
-                {/*<div ref={refRightMenu} style={{float: "left", width: 0, overflow: "hidden", position: "relative",}}*/}
-                {/*     className={' d-flex flex-row justify-between items-center text-center'}*/}
-                {/*>*/}
-                {/*    {confirmPresence ? <>*/}
-                {/*        <div className={'d-flex items-center justify-center bg-green-700 h-100 border-right border-secondary w-100 text-white '}*/}
-
-                {/*        onClick={()=>{*/}
-                {/*            //добавить результат сдал студенту*/}
-                {/*            const id = student._id*/}
-                {/*            const exams = student.exams*/}
-                {/*            exams[1].result = true*/}
-                {/*            editExamResultForStudent(id, exams).then((res) => {*/}
-                {/*                refRightMenu.current.style.width = 0*/}
-                {/*                refBlock.current.style.right = 0*/}
-                {/*                refBlock.current.style.color = '#76b716'*/}
-                {/*            })*/}
-                {/*        }}*/}
-                {/*        >Сдал</div>*/}
-                {/*        <div className={'d-flex items-center justify-center bg-red-700 h-100 border-right border-secondary w-100 text-white '}*/}
-                {/*             onClick={()=>{*/}
-                {/*                //ничего не делать*/}
-                {/*             }}*/}
-                {/*        >Не сдал</div>*/}
-                {/*    </> : <>*/}
-                {/*        <div className={'d-flex items-center justify-center bg-green-700 h-100 border-right border-secondary w-100 text-white '}*/}
-                {/*             onClick={()=>{*/}
-                {/*                //добавить дату экзамена в массив у студента*/}
-                {/*             }}*/}
-                {/*        >Подтв</div>*/}
-                {/*        <div className={'d-flex items-center justify-center bg-yellow-500 h-100 border-right border-secondary w-100 text-white '}*/}
-                {/*             onClick={()=>{*/}
-                {/*                 //удалить кандидата из списка людей в экзамене*/}
-                {/*             }}*/}
-                {/*        >Отмена</div>*/}
-                {/*    </>}*/}
-                {/*</div>*/}
+                {goodExamResult ? '' :
+                    <div className={'d-flex flex-row'}>
+                        <div
+                            className={'d-flex items-center justify-center bg-green-700 h-100 border-right border-secondary px-1 text-white '}
+                            onClick={() => {
+                                goodExam()
+                            }}
+                        >
+                            Сдал
+                        </div>
+                        <div
+                            className={'d-flex items-center justify-center bg-red-700 h-100 border-right border-secondary px-1 text-white '}
+                            onClick={() => {
+                                cancelExam(student._id)
+                            }}
+                        >Отмена
+                        </div>
+                    </div>}
+                <Button onClick={()=>{console.log(students)}}>sss</Button>
             </div>
-            // </SwipeHOC>
         );
     }
 }

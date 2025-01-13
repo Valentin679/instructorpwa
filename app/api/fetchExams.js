@@ -42,8 +42,8 @@ export const deleteExam = async (id) => {
     })
 }
 
-export const signUpExam = async (body) => {
-    await fetch(`${instance.local}api/exams/b/sign-up`, {
+export const signUpExam = async (id, body) => {
+    await fetch(`${instance.url}api/exams/b/sign-up/` + id, {
         method: 'PUT',
         //
         body: JSON.stringify(body),

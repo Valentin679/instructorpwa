@@ -27,7 +27,7 @@ export default function ExamsBlock({exams}) {
     }
     const driveExam = () => {
         if (theory.result && driveExamsCount === 0) {
-            return <StartTag point={'В'}/>
+            return
         }
         if (driveExamsCount === 1 && drive.result === false) {
             if(dayjs().isBefore(drive.dates[1])){

@@ -94,8 +94,19 @@ export const editExamResultForStudent = async (id, body) => {
         }
     })
 }
-export const signUpForExam = async (body) => {
-    await fetch(`${instance.local}api/students/category/b/sign-up-for-exam`, {
+export const signUpForExam = async (id, body) => {
+    await fetch(`${instance.url}api/students/category/b/sign-up-for-exam/` + id , {
+        method: 'PUT',
+        //
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json; charset=utf-8'
+        }
+    })
+}
+
+export const editExams = async (id, body) => {
+    await fetch(`${instance.url}api/students/category/b/sign-up-for-exam/` + id , {
         method: 'PUT',
         //
         body: JSON.stringify(body),

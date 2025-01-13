@@ -1,12 +1,13 @@
 'use client'
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {usePathname} from "next/navigation";
 import Loading from "@/app/components/Loading";
 import {getExamById, signUpExam} from "@/app/api/fetchExams";
+import {Button, Select} from "antd";
+import {getActiveStudents, getStudentById, signUpForExam} from "@/app/api/fetchStudents";
+import {filterExamWindow} from "@/app/exams/functions";
 import Student from "@/app/exams/[id]/components/Student";
-import BadTag from "@/app/students/components/item-components/Tags/badTag";
-import {Button} from "antd";
-import {signUpForExam} from "@/app/api/fetchStudents";
+import studentsContext from "@/app/context/StudentsContext";
 
 // Сделать чтобы до даты экзамена было одно меню действий, а в дату экзамена другое
 // Сделать общее редактирование и одну отправку с обработкой на сервере
@@ -14,36 +15,60 @@ import {signUpForExam} from "@/app/api/fetchStudents";
 
 export default function Exam() {
 
+
+
+    // Получать активных студентов +
+    // Фильтровать по окну пересдачи +
+    // Фильтр для импута +
+    //
+
     const pathname = usePathname()
     const id = pathname.replace(/^.{7}/, '')
     const [exam, setExam] = useState()
     const [examId, setExamId] = useState(id);
-    const [students, setStudents] = useState([])
-    const [changed, setChanged] = useState(false)
+    // const [students, setStudents] = useState([])
+    const {students, setStudents} = useContext(studentsContext)
+    const [studentListForSelect, setStudentListForSelect] = useState([])
+    const [inputSelected, setInputSelected] = useState('Не выбрано')
 
-    function cancelExam(id) {
-        const newArray = students.filter((student, index) => {
-            return index !== id
+    const fetchStudentsForSelect = (date, recorded) => {
+        getActiveStudents().then((res) => {
+            const filteredByDate = filterExamWindow(res, date, recorded)
+            const studentsArr = filteredByDate.map(student => {
+                return {
+                    value: student._id,
+                    label: student.lastName + ' ' + student.firstName[0] + '. ' + student.surname[0] + '.'
+                }
+            })
+            setStudentListForSelect(studentsArr)
         })
-        setStudents(newArray)
-        setChanged(true)
     }
-    function confirmExam(id) {
-        const newStudent = students[id]
-        newStudent.exams[1].dates.push(exam.date)
-        console.log(newStudent)
-        students[id] = newStudent
-        const newArray = students
-        setStudents(newArray)
-        setChanged(true)
-    }
+    const handleChange = (value) => {
+        setInputSelected(value)
+    };
+
     useEffect(() => {
         getExamById(examId).then((res) => {
+            // console.log(res)
             setExam(res)
-            setStudents(res.students)
+            // setStudents(res.students)
+            fetchStudentsForSelect(res.date, students)
         })
-    }, [examId]);
+    }, [examId, students]);
 
+
+    const examList = students.map((student,index) => {
+       let confirm
+        student.exams[1].dates.map(e => {
+            // console.log(student.lastName +" "+e)
+            if (e === exam.date){
+                confirm = true
+            } })
+        if (confirm) {
+            console.log(index)
+           return <Student key={student._id} index={index} examDate={exam.date} studentData={student}></Student>
+        }
+    })
 
     if (!exam) {
         return <Loading/>
@@ -53,36 +78,62 @@ export default function Exam() {
                 <div className={'d-flex flex-row gap-2 mb-2 p-1'}>
                     {exam.date}
                 </div>
-                {changed ? <div className={'text-red-500'}>Сохраните изменения</div> : ''}
+                {/*{changed ? <div className={'text-red-500'}>Сохраните изменения</div> : ''}*/}
                 <div className={'d-flex flex-row gap-2 mb-2 p-1'}>
-                   Инспектор: {exam.inspector}
+                    Инспектор: {exam.inspector}
+                </div>
+                <div className={'d-flex flex-row gap-2'}>
+                    <Select
+                        defaultValue={inputSelected}
+                        style={{width: '100%'}}
+                        onChange={handleChange}
+                        options={studentListForSelect}
+                    />
+                    <Button onClick={() => {
+                        getStudentById(inputSelected).then((res) => {
+
+                                let addedStudent = [...students, res]
+                                setStudents(addedStudent)
+
+                                let exams = res.exams
+                                exams[1].dates.push(exam.date)
+                                signUpForExam(res._id, exams).then(res => {
+                                    setStudentListForSelect(studentListForSelect.filter(item => item.value !== inputSelected))
+                                    signUpExam(examId, addedStudent).then((res) => {
+                                        // console.log(res)
+                                    })
+                                })
+
+
+                            }
+                        )
+
+                    }}>Добавить</Button>
                 </div>
                 <div>
-                    {students.map((student, index) => {return <Student key={student._id}
-                                                                       index={index}
-                                                                       studentData={student}
-                                                                       examDate={exam.date}
-                                                                       cancelExam={cancelExam}
-                                                                       confirmExam={confirmExam}
-                    />})}
+                    Список записаных
+                    {/*{students.map((student,index) => <Student key={student._id} index={index} examDate={exam.date} studentData={student}></Student>)}*/}
+                    {examList}
                 </div>
 
-                <Button onClick={()=>{console.log(students)}}>console</Button>
-                <Button onClick={()=>{
-                    let bodyForStudents = []
-                    let bodyForExam = {examId, students}
-                    students.map(student => {
-                        let id = student._id
-                        let exams = student.exams
-                        let data = {
-                            id, exams
-                        }
-                        bodyForStudents.push(data)
-                    })
-                    console.log(bodyForStudents)
-                    signUpForExam(bodyForStudents).then(res => console.log(res))
-                    signUpExam(bodyForExam).then(res => setExamId(bodyForExam.examId))
-                }}>id</Button>
+                <Button onClick={() => {
+                    // console.log(students)
+                }}>console</Button>
+                {/*<Button onClick={()=>{*/}
+                {/*    let bodyForStudents = []*/}
+                {/*    let bodyForExam = {examId, students}*/}
+                {/*    students.map(student => {*/}
+                {/*        let id = student._id*/}
+                {/*        let exams = student.exams*/}
+                {/*        let data = {*/}
+                {/*            id, exams*/}
+                {/*        }*/}
+                {/*        bodyForStudents.push(data)*/}
+                {/*    })*/}
+                {/*    console.log(bodyForStudents)*/}
+                {/*    signUpForExam(bodyForStudents).then(res => console.log(res))*/}
+                {/*    signUpExam(bodyForExam).then(res => setExamId(bodyForExam.examId))*/}
+                {/*}}>id</Button>*/}
             </div>
 
         )

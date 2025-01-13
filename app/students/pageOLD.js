@@ -1,5 +1,5 @@
 'use client'
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getActiveStudents, getInactiveStudents} from "@/app/api/fetchStudents";
 import StudentsListItem from "@/app/students/components/StudentsListItem";
 import {useRouter} from 'next/navigation'
@@ -9,8 +9,6 @@ import {Radio} from 'antd';
 import {UserAddOutlined} from "@ant-design/icons";
 import NowDateContext from "@/app/context/NowDateContext";
 import dayjs from "dayjs";
-import studentsContext from "@/app/context/StudentsContext";
-import StudentsContext from "@/app/context/StudentsContext";
 
 const optionsActive = [
     {label: 'Активные', value: true},
@@ -26,8 +24,7 @@ const optionsFilter = [
 
 export default function Students() {
     const router = useRouter()
-    const {students, setStudents} = useContext(StudentsContext)
-    const [inactiveStudents, setInactiveStudents] = useState([])
+    const [students, setStudents] = useState([])
     const [activeStudents, setActiveStudents] = useState(true)
     const [activeFilter, setActiveFilter] = useState('groups')
     const onChangeActive = (e) => {
@@ -50,7 +47,6 @@ export default function Students() {
             })
             // console.log(result)
             setStudents(result)
-            // students === result
         } else if (activeFilter === 'alphabet') {
             let result = arr.sort((a, b) => {
                 if (a.lastName > b.lastName) return 1;
@@ -58,7 +54,6 @@ export default function Students() {
             })
             // console.log(result)
             setStudents(result)
-            // students === result
         } else if (activeFilter === 'additional') {
             let result = arr.sort((a, b) => {
                 if (a.quantityPracticalLessons > b.quantityPracticalLessons) return -1;
@@ -66,7 +61,6 @@ export default function Students() {
             })
             // console.log(result)
             setStudents(result)
-            // students === result
         } else if (activeFilter === 'theoryPassed') {
             let result = arr.sort((a, b) => {
                 if (a.exams[0].result === false) return 1;
@@ -74,27 +68,24 @@ export default function Students() {
             })
             // console.log(result)
             setStudents(result)
-            // students === result
         }
 
     }
-    filterFunction(students)
+
     useEffect(() => {
-        if (activeStudents && students.length !== 0) {
-            filterFunction(students)
-        } else {
-            getInactiveStudents().then(res => {
-                setInactiveStudents(res)
-                // filterFunction(res)
-            })
-        }
+        activeStudents ? getActiveStudents().then(res => {
+                setStudents(res)
+                filterFunction(res)
+            }
+        ) : getInactiveStudents().then(res => {
+                setStudents(res)
+                filterFunction(res)
+            }
+        )
     }, [activeStudents, activeFilter]);
-    console.log(students)
+console.log(students)
 
     const studentsList = students.map(student => (
-        <StudentsListItem key={student._id} student={student}/>
-    ))
-    const inactiveStudentsList = inactiveStudents.map(student => (
         <StudentsListItem key={student._id} student={student}/>
     ))
     if (students.length === 0) {
@@ -120,7 +111,7 @@ export default function Students() {
                     }}><UserAddOutlined/></Button>
                 </div>
                 <NowDateContext.Provider value={dayjs()}>
-                    {activeStudents ? studentsList : inactiveStudentsList}
+                {studentsList}
                 </NowDateContext.Provider>
             </div>
         );
