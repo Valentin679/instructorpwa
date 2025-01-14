@@ -4,7 +4,7 @@ import {usePathname} from "next/navigation";
 import Loading from "@/app/components/Loading";
 import {getExamById, signUpExam} from "@/app/api/fetchExams";
 import {Button, Select} from "antd";
-import {getActiveStudents, getStudentById, signUpForExam} from "@/app/api/fetchStudents";
+import {editExams, getStudentById, signUpForExam} from "@/app/api/fetchStudents";
 import {filterExamWindow} from "@/app/exams/functions";
 import Student from "@/app/exams/[id]/components/Student";
 import studentsContext from "@/app/context/StudentsContext";
@@ -16,7 +16,6 @@ import studentsContext from "@/app/context/StudentsContext";
 export default function Exam() {
 
 
-
     // Получать активных студентов +
     // Фильтровать по окну пересдачи +
     // Фильтр для импута +
@@ -26,22 +25,32 @@ export default function Exam() {
     const id = pathname.replace(/^.{7}/, '')
     const [exam, setExam] = useState()
     const [examId, setExamId] = useState(id);
-    // const [students, setStudents] = useState([])
     const {students, setStudents} = useContext(studentsContext)
     const [studentListForSelect, setStudentListForSelect] = useState([])
     const [inputSelected, setInputSelected] = useState('Не выбрано')
+    const [update, setUpdate] = useState(false)
 
-    const fetchStudentsForSelect = (date, recorded) => {
-        getActiveStudents().then((res) => {
-            const filteredByDate = filterExamWindow(res, date, recorded)
-            const studentsArr = filteredByDate.map(student => {
-                return {
-                    value: student._id,
-                    label: student.lastName + ' ' + student.firstName[0] + '. ' + student.surname[0] + '.'
-                }
-            })
-            setStudentListForSelect(studentsArr)
+    const fetchStudentsForSelect = (date) => {
+        if (exam) {
+        const findRecorded = students.map(student => {
+            let cunfirm = student.exams[1].dates.find(e => e === exam.date)
+            // console.log(cunfirm)
+            if (cunfirm) {
+                return student
+            }else {return null}
         })
+        let recorded = findRecorded.filter(element => element != null)
+
+        // console.log(recorded)
+        const filteredByDate = filterExamWindow(students, date, recorded)
+        const studentsArr = filteredByDate.map(student => {
+            return {
+                value: student._id,
+                label: student.lastName + ' ' + student.firstName[0] + '. ' + student.surname[0] + '.'
+            }
+        })
+        setStudentListForSelect(studentsArr)
+        }
     }
     const handleChange = (value) => {
         setInputSelected(value)
@@ -51,22 +60,24 @@ export default function Exam() {
         getExamById(examId).then((res) => {
             // console.log(res)
             setExam(res)
-            // setStudents(res.students)
-            fetchStudentsForSelect(res.date, students)
+            fetchStudentsForSelect(res.date)
         })
-    }, [examId, students]);
+    }, [examId, students,update]);
 
 
-    const examList = students.map((student,index) => {
-       let confirm
-        student.exams[1].dates.map(e => {
-            // console.log(student.lastName +" "+e)
-            if (e === exam.date){
-                confirm = true
-            } })
+    const examList = students.map((student, index) => {
+        let confirm
+        if (exam) {
+            student.exams[1].dates.map(e => {
+                // console.log(student.lastName +" "+e)
+                if (e === exam.date) {
+                    confirm = true
+                }
+            })
+        }
         if (confirm) {
-            console.log(index)
-           return <Student key={student._id} index={index} examDate={exam.date} studentData={student}></Student>
+            // console.log(index)
+            return <Student key={student._id} index={index} examDate={exam.date} studentData={student}></Student>
         }
     })
 
@@ -90,19 +101,34 @@ export default function Exam() {
                         options={studentListForSelect}
                     />
                     <Button onClick={() => {
+                        console.log(inputSelected)
                         getStudentById(inputSelected).then((res) => {
-
-                                let addedStudent = [...students, res]
-                                setStudents(addedStudent)
-
-                                let exams = res.exams
-                                exams[1].dates.push(exam.date)
-                                signUpForExam(res._id, exams).then(res => {
-                                    setStudentListForSelect(studentListForSelect.filter(item => item.value !== inputSelected))
-                                    signUpExam(examId, addedStudent).then((res) => {
-                                        // console.log(res)
-                                    })
+                                let student = res
+                            student.exams[1].dates.push(exam.date)
+                            console.log(student)
+                                // let addedStudent = [...students, res]
+                                // setStudents(addedStudent)
+                            editExams(inputSelected, student.exams).then((res)=>{
+                                let number
+                                console.log(students)
+                                students.find((student, index) => {
+                                    if (student._id === inputSelected) {
+                                        console.log(index)
+                                        number = index
+                                    }
                                 })
+                                let newStudentsData = students[number].exams[1].dates.push(exam.date)
+                                console.log(newStudentsData)
+                                // setStudents(newStudentsData)
+                            })
+                                // let exams = res.exams
+                                // exams[1].dates.push(exam.date)
+                                // signUpForExam(res._id, exams).then(res => {
+                                //     setStudentListForSelect(studentListForSelect.filter(item => item.value !== inputSelected))
+                                //     signUpExam(examId, addedStudent).then((res) => {
+                                //         // console.log(res)
+                                //     })
+                                // })
 
 
                             }
@@ -111,7 +137,7 @@ export default function Exam() {
                     }}>Добавить</Button>
                 </div>
                 <div>
-                    Список записаных
+                    Список записаных:
                     {/*{students.map((student,index) => <Student key={student._id} index={index} examDate={exam.date} studentData={student}></Student>)}*/}
                     {examList}
                 </div>

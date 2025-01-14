@@ -38,13 +38,14 @@ export default function Student({studentData, index, examDate}) {
                 if (date === examDate) {
                     console.log(true)
                     currentStudent.exams[1].dates.splice(index, 1)
+                    editExams(currentStudent._id, currentStudent.exams).then(res=>{
+                        // students[number] = currentStudent
+                        // setStudents(students)
+                        // update ? setUpdate(false) : setUpdate(true)
+                    })
                 }
                 console.log(currentStudent)
-                editExams(currentStudent._id, currentStudent.exams).then(res=>{
-                    // students[number] = currentStudent
-                    // setStudents(students)
-                    update ? setUpdate(false) : setUpdate(true)
-                })
+
             }
         )
     }
