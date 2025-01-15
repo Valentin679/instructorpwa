@@ -6,7 +6,7 @@ dayjs.extend(customParseFormat);
 export const filterExamWindow = (students, date, recorded) => {
     const nowDate = dayjs()
 
-    console.log(students)
+    // console.log(students)
     const filtered = students.filter(student => {
 
         if (student.exams[0].result === false) {
@@ -33,8 +33,8 @@ export const filterExamWindow = (students, date, recorded) => {
     const biggestArr = recorded.length >= filtered.length ? recorded : filtered;
 
     const resultArray = biggestArr.map((item, index) => {
-        console.log(biggestArr)
-        console.log(leastArr)
+        // console.log(biggestArr)
+        // console.log(leastArr)
         leastArr.map(item2 => {
             if (item2._id === item._id){
                 console.log(index)
@@ -43,7 +43,7 @@ export const filterExamWindow = (students, date, recorded) => {
         })
     });
     //
-    console.log(resultArray);
+    // console.log(resultArray);
     // console.log(filtered);
 
     return filtered

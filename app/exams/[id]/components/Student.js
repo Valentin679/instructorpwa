@@ -5,7 +5,7 @@ import {editExamResultForStudent, editExams} from "@/app/api/fetchStudents";
 import StudentsContext from "@/app/context/StudentsContext";
 import {Button} from "antd";
 
-export default function Student({studentData, index, examDate}) {
+export default function Student({studentData, index, examDate, setInputSelected}) {
     const [student, setStudent] = useState(studentData)
     const {students, setStudents} = useContext(StudentsContext)
     const [goodExamResult, setGoodExamResult] = useState(studentData.exams[1].result)
@@ -24,25 +24,22 @@ export default function Student({studentData, index, examDate}) {
 
     function cancelExam(id) {
         let number
-        console.log(students)
         students.find((student, index) => {
             if (student._id === id) {
-                console.log(index)
                 number = index
             }
         })
         const currentStudent = students[number]
-        console.log(currentStudent)
         currentStudent.exams[1].dates.map((date, index) => {
-                console.log('date - ' + date)
                 if (date === examDate) {
-                    console.log(true)
                     currentStudent.exams[1].dates.splice(index, 1)
+                    students[number].exams[1].dates.splice(index, 1)
                     editExams(currentStudent._id, currentStudent.exams).then(res=>{
                         // students[number] = currentStudent
                         // setStudents(students)
                         // update ? setUpdate(false) : setUpdate(true)
                     })
+                    setInputSelected('Не выбран')
                 }
                 console.log(currentStudent)
 
@@ -50,9 +47,6 @@ export default function Student({studentData, index, examDate}) {
         )
     }
 
-    useEffect(() => {
-
-    }, [update]);
     // console.log(goodExamResult)
 
     if (!student) {
@@ -61,9 +55,9 @@ export default function Student({studentData, index, examDate}) {
         return (
 
             <div ref={refContainer} className={'d-flex flex-row overflow-hidden'}>
-                <div ref={refBlock} style={goodExamResult ? {background: "green"} : {background: "none"}}
+                <div ref={refBlock}
                      className={'d-flex p-3 bg-light border-bottom w-100 position-relative'}>
-                    <p>
+                    <p style={goodExamResult ? {color: "green"} : {} }>
                         {student.firstName + ' ' + student.lastName + ' ' + student.surname}
                     </p>
 
@@ -86,7 +80,6 @@ export default function Student({studentData, index, examDate}) {
                         >Отмена
                         </div>
                     </div>}
-                <Button onClick={()=>{console.log(students)}}>sss</Button>
             </div>
         );
     }
