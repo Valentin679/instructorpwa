@@ -1,6 +1,6 @@
 import {createContext, useContext, useEffect, useReducer} from "react";
 import {getActiveStudents} from "@/app/api/fetchStudents";
-
+import FetchStudents from "@/app/components/FetchStudents";
 export const StudentsContext = createContext([])
 export const StudentsDispatchContext = createContext([])
 
@@ -10,22 +10,24 @@ export function StudentsProvider({children}) {
         studentsReducer,
         initialStudents
     );
-    useEffect(() => {
-        getActiveStudents().then((res) => {
-            console.log(res)
-            dispatch({type: 'fetch', payload: res})
-            console.log('req')
-            console.log(students)
-        })
-    }, []);
-        return (
-            <StudentsContext.Provider value={students}>
-                <StudentsDispatchContext.Provider value={dispatch}>
+    // useEffect(() => {
+    //     getActiveStudents().then((res) => {
+    //         dispatch({type: 'fetch', payload: res})
+    //         console.log('req')
+    //         console.log(students)
+    //     })
+    // }, []);
+    return (
+        <StudentsContext.Provider value={students}>
+            <StudentsDispatchContext.Provider value={dispatch}>
+                <FetchStudents>
                     {children}
-                </StudentsDispatchContext.Provider>
-            </StudentsContext.Provider>
-        );
+                </FetchStudents>
+            </StudentsDispatchContext.Provider>
+        </StudentsContext.Provider>
+    );
 }
+
 let initialStudents
 
 function studentsReducer(students, action) {

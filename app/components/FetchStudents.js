@@ -10,7 +10,7 @@ export default function fetchStudents ({children}) {
         getActiveStudents().then((res)=>{
             dispatch({type: 'fetch', payload: res})
         })
-    }, [stu?.length === 0]);
+    }, []);
     console.log(stu)
   return (
       <>

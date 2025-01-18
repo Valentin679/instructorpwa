@@ -27,7 +27,7 @@ const optionsFilter = [
 export default function Students() {
     const router = useRouter()
     const students = useStudents()
-    const [viewStudents, setViewStudents] = useState(students)
+    const [viewStudents, setViewStudents] = useState([])
     const [inactiveStudents, setInactiveStudents] = useState([])
     const [activeStudents, setActiveStudents] = useState(true)
     const [activeFilter, setActiveFilter] = useState('groups')
@@ -81,7 +81,7 @@ export default function Students() {
     }
     // filterFunction(viewStudents)
     useEffect(() => {
-        if (activeStudents && students.length !== 0) {
+        if (activeStudents && students?.length !== 0 && students !== undefined) {
             filterFunction(students)
         } else {
             getInactiveStudents().then(res => {
@@ -89,7 +89,7 @@ export default function Students() {
                 // filterFunction(res)
             })
         }
-    }, [activeStudents, activeFilter]);
+    }, [activeStudents, activeFilter, students]);
     console.log(students)
 
     const studentsList = viewStudents.map(student => (
@@ -98,7 +98,7 @@ export default function Students() {
     const inactiveStudentsList = inactiveStudents.map(student => (
         <StudentsListItem key={student._id} student={student}/>
     ))
-    if (students.length === 0) {
+    if (students?.length === 0 || students === undefined) {
         return <Loading style={{margin: '0 auto'}}/>
     } else {
         return (
