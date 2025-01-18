@@ -21,10 +21,10 @@ export default function Home() {
 
     const checkId = () => {
         const id = Number(getCookie('instr'))
-        console.log(id)
+        // console.log(id)
         if (id === 1) {setIsAuthorize(true)}
     }
-    console.log(isAuthorize)
+    // console.log(isAuthorize)
     useEffect(() => {
         checkId()
     }, [userId]);

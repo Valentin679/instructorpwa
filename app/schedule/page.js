@@ -9,6 +9,7 @@ import StudentsContext, {useStudents} from "@/app/context/StudentsContext";
 
 export default function Schedule() {
     const [messageApi, contextHolder] = message.useMessage();
+    const students = useStudents()
     const success = (contentText) => {
         messageApi.open({
             type: 'success',
@@ -16,7 +17,6 @@ export default function Schedule() {
         });
     };
     // const students = useContext(StudentsContext)
-    const students = useStudents()
     return (
 
         <div className={'d-flex flex-column fontSize18'} >
@@ -24,9 +24,9 @@ export default function Schedule() {
             <div style={{minHeight: '100%'}}>Расписание</div>
             <Lessons success={success}/>
             {/*<Slots/>*/}
-            {/*<Button onClick={()=>{*/}
-            {/*    console.log(students)*/}
-            {/*}}>ffff</Button>*/}
+            <Button onClick={()=>{
+                console.log(students)
+            }}>ffff</Button>
         </div>
     );
 }
