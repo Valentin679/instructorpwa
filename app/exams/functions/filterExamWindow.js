@@ -1,13 +1,30 @@
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import {useStudents} from "@/app/context/StudentsContext";
 
 dayjs.extend(customParseFormat);
 
 export const filterExamWindow = (students, date, recorded) => {
-    const nowDate = dayjs()
+    const nowDate = dayjs(date, 'DD/MM/YYYY')
+    // const students = useStudents()
+    // const leastArr = recorded.length < filtered.length ? recorded : filtered;
+    // const biggestArr = recorded.length >= filtered.length ? recorded : filtered;
+    //
+    // const resultArray = biggestArr.map((item, index) => {
+    //     // console.log(biggestArr)
+    //     // console.log(leastArr)
+    //     leastArr.map(item2 => {
+    //         if (item2._id === item._id) {
+    //             console.log(index)
+    //         }
+    //         // filtered.splice(index, 1)
+    //     })
+    // });
+    // //
+    // // console.log(resultArray);
+    // // console.log(filtered);
 
-    // console.log(students)
-    const filtered = students.filter(student => {
+    return students.filter(student => {
 
         if (student.exams[0].result === false) {
             return null
@@ -29,22 +46,4 @@ export const filterExamWindow = (students, date, recorded) => {
             }
         }
     })
-    const leastArr = recorded.length < filtered.length ? recorded : filtered;
-    const biggestArr = recorded.length >= filtered.length ? recorded : filtered;
-
-    const resultArray = biggestArr.map((item, index) => {
-        // console.log(biggestArr)
-        // console.log(leastArr)
-        leastArr.map(item2 => {
-            if (item2._id === item._id){
-                console.log(index)
-            }
-            // filtered.splice(index, 1)
-        })
-    });
-    //
-    // console.log(resultArray);
-    // console.log(filtered);
-
-    return filtered
 }

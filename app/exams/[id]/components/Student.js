@@ -2,12 +2,13 @@
 import {useContext, useEffect, useRef, useState} from "react";
 import Loading from "@/app/components/Loading";
 import {editExamResultForStudent, editExams} from "@/app/api/fetchStudents";
-import StudentsContext from "@/app/context/StudentsContext";
+import StudentsContext, {StudentsProvider, useStudents} from "@/app/context/StudentsContext";
 import {Button} from "antd";
 
 export default function Student({studentData, index, examDate, setInputSelected}) {
     const [student, setStudent] = useState(studentData)
-    const {students, setStudents} = useContext(StudentsContext)
+    // const {students, setStudents} = useContext(StudentsContext)
+    const students = useStudents()
     const [goodExamResult, setGoodExamResult] = useState(studentData.exams[1].result)
     const refContainer = useRef();
     const refBlock = useRef();

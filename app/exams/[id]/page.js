@@ -5,49 +5,31 @@ import Loading from "@/app/components/Loading";
 import {getExamById, signUpExam} from "@/app/api/fetchExams";
 import {Button, Select} from "antd";
 import {editExams, getStudentById} from "@/app/api/fetchStudents";
-import {filterExamWindow} from "@/app/exams/functions";
+import {filterExamWindow} from "@/app/exams/functions/filterExamWindow";
 import Student from "@/app/exams/[id]/components/Student";
-import studentsContext from "@/app/context/StudentsContext";
+import studentsContext, {useStudents} from "@/app/context/StudentsContext";
+import {mutateArrayForSelectStudents} from "@/app/functions/mutateArrayForSelectStudents";
+import {findRecorded} from "@/app/exams/functions/findRecordedStudentsOnExam";
+import {findIndexById} from "@/app/functions/findIndexById";
 
 export default function Exam() {
     const pathname = usePathname()
     const id = pathname.replace(/^.{7}/, '')
     const [exam, setExam] = useState()
     const [examId, setExamId] = useState(id);
-    const {students, setStudents} = useContext(studentsContext)
+    // const {students, setStudents} = useContext(studentsContext)
+    const students = useStudents()
     const [studentListForSelect, setStudentListForSelect] = useState([])
-    const [inputSelected, setInputSelected] = useState('Не выбрано')
+    const [recordedStudents, setRecordedStudents] = useState([])
+    const [inputSelected, setInputSelected] = useState({value: 0, label: 'Не выбрано'})
 
     function fetchExam() {
         getExamById(examId).then((res) => {
             // console.log(res)
             setExam(res)
-            fetchStudentsForSelect(res.date)
         })
     }
 
-    const fetchStudentsForSelect = (date) => {
-        if (exam) {
-            const findRecorded = students.map(student => {
-                let cunfirm = student.exams[1].dates.find(e => e === exam.date)
-                // console.log(cunfirm)
-                if (cunfirm) {
-                    return student
-                } else {
-                    return null
-                }
-            })
-            let recorded = findRecorded.filter(element => element != null)
-            const filteredByDate = filterExamWindow(students, date, recorded)
-            const studentsArr = filteredByDate.map(student => {
-                return {
-                    value: student._id,
-                    label: student.lastName + ' ' + student.firstName[0] + '. ' + student.surname[0] + '.'
-                }
-            })
-            setStudentListForSelect(studentsArr)
-        }
-    }
     const handleChange = (value) => {
         setInputSelected(value)
     };
@@ -65,39 +47,30 @@ export default function Exam() {
         }
         if (confirm) {
             // console.log(index)
-            return <Student key={student._id} index={index} setInputSelected={setInputSelected} examDate={exam.date} studentData={student}></Student>
+            return <Student key={student._id} index={index} setInputSelected={setInputSelected} examDate={exam.date}
+                            studentData={student}></Student>
         }
     })
 
     const addStudentForExam = () => {
-        getStudentById(inputSelected).then((res) => {
-                let number
-                let student = res
-                students.find((student, index) => { // поиск студента в контексте (по значению селекта)
-                    if (student._id === inputSelected) {
-                        number = index
-
-                    }
-                })
-                student.exams[1].dates.push(exam.date)
-                students[number].exams[1].dates.push(exam.date)//добавляем дату к студенту
-                editExams(inputSelected, student.exams).then((res) => { //фетч запрос на изменение в бд, отправляется весь раздел экзамена для студента
-                    console.log('Добавлено в БД')
-                })
-                handleChange('Не выбрано')
-            }
-        )
+        const index = findIndexById(students, inputSelected) //Индекс ученика в контексте (по значению селекта)
+        students[index].exams[1].dates.push(exam.date) //добавляем дату к студенту
+        editExams(inputSelected, students[index].exams).then((res) => { //фетч запрос на изменение в бд, отправляется весь раздел экзамена для студента
+            console.log('Добавлено в БД')
+        })
+        handleChange({value: 0, label: 'Не выбрано'})
     }
 
     useEffect(() => {
-        console.log('render')
         fetchExam()
-    }, [examId, students, inputSelected]);
+        console.log('render')
+        if (exam) {
+            findRecorded(students, exam.date, setRecordedStudents)
+            filterExamWindow(students, exam.date)
+            console.log('tyt')
+        }
+    }, [examId, students]);
 
-
-    useEffect(() => {
-        console.log('change')
-    }, [students]);
 
     if (!exam) {
         return <Loading/>
@@ -113,12 +86,15 @@ export default function Exam() {
                 <div className={'d-flex flex-row gap-2'}>
                     <Select
                         defaultValue={inputSelected}
+                        value={inputSelected}
                         style={{width: '100%'}}
+                        onDropdownVisibleChange={(open) => {
+                            open ? mutateArrayForSelectStudents(students, exam.date, recordedStudents, setStudentListForSelect) : console.log('close select') //при открытии запускать функцию по мутации под селект
+                        }}
                         onChange={handleChange}
                         options={studentListForSelect}
                     />
                     <Button onClick={() => {
-                        console.log(inputSelected)
                         addStudentForExam()
                     }}>Добавить</Button>
                 </div>

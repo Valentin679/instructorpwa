@@ -9,7 +9,7 @@ import {Radio} from 'antd';
 import {UserAddOutlined} from "@ant-design/icons";
 import NowDateContext from "@/app/context/NowDateContext";
 import dayjs from "dayjs";
-import studentsContext from "@/app/context/StudentsContext";
+import studentsContext, {useStudents} from "@/app/context/StudentsContext";
 import StudentsContext from "@/app/context/StudentsContext";
 
 const optionsActive = [
@@ -26,7 +26,8 @@ const optionsFilter = [
 
 export default function Students() {
     const router = useRouter()
-    const {students, setStudents} = useContext(StudentsContext)
+    const students = useStudents()
+    const [viewStudents, setViewStudents] = useState(students)
     const [inactiveStudents, setInactiveStudents] = useState([])
     const [activeStudents, setActiveStudents] = useState(true)
     const [activeFilter, setActiveFilter] = useState('groups')
@@ -49,7 +50,7 @@ export default function Students() {
                 if (a.group.year > b.group.year) return 1;
             })
             // console.log(result)
-            setStudents(result)
+            setViewStudents(result)
             // students === result
         } else if (activeFilter === 'alphabet') {
             let result = arr.sort((a, b) => {
@@ -57,7 +58,7 @@ export default function Students() {
                 if (a.lastName < b.lastName) return -1;
             })
             // console.log(result)
-            setStudents(result)
+            setViewStudents(result)
             // students === result
         } else if (activeFilter === 'additional') {
             let result = arr.sort((a, b) => {
@@ -65,7 +66,7 @@ export default function Students() {
                 if (a.quantityPracticalLessons < b.quantityPracticalLessons) return 1;
             })
             // console.log(result)
-            setStudents(result)
+            setViewStudents(result)
             // students === result
         } else if (activeFilter === 'theoryPassed') {
             let result = arr.sort((a, b) => {
@@ -73,12 +74,12 @@ export default function Students() {
                 if (a.exams[0].result === true) return -1;
             })
             // console.log(result)
-            setStudents(result)
+            setViewStudents(result)
             // students === result
         }
 
     }
-    filterFunction(students)
+    // filterFunction(viewStudents)
     useEffect(() => {
         if (activeStudents && students.length !== 0) {
             filterFunction(students)
@@ -91,7 +92,7 @@ export default function Students() {
     }, [activeStudents, activeFilter]);
     console.log(students)
 
-    const studentsList = students.map(student => (
+    const studentsList = viewStudents.map(student => (
         <StudentsListItem key={student._id} student={student}/>
     ))
     const inactiveStudentsList = inactiveStudents.map(student => (

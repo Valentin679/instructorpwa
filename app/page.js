@@ -2,10 +2,16 @@
 import Profile from "@/app/profile/Profile";
 import {useEffect, useState} from "react";
 import AuthorizeForm from "@/app/components/AuthorizeForm";
+import {useStudents, useStudentsDispatch} from "@/app/context/StudentsContext";
+import {getActiveStudents} from "@/app/api/fetchStudents";
 
 export default function Home() {
     const [isAuthorize, setIsAuthorize] = useState(false)
     const [userId, setUserId] = useState(null)
+
+
+
+
     function getCookie(name) {
         let matches = document.cookie.match(new RegExp(
             "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"

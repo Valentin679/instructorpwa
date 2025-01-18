@@ -5,7 +5,7 @@ import {addStudent, getActiveStudents} from "@/app/api/fetchStudents";
 import {useRouter} from 'next/navigation'
 import {addExam} from "@/app/api/fetchExams";
 import dayjs from "dayjs";
-import {filterExamWindow} from "@/app/exams/functions";
+import {filterExamWindow} from "@/app/exams/functions/filterExamWindow";
 import StudentListOnExam from "@/app/exams/add-exam/StudentListOnExam";
 
 import customParseFormat from "dayjs/plugin/customParseFormat";
