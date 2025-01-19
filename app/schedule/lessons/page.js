@@ -4,10 +4,9 @@ import dayjs from 'dayjs';
 import AddLesson from "@/app/schedule/lessons/AddLesson";
 import weekday from 'dayjs/plugin/weekday'
 import toObject from 'dayjs/plugin/toObject'
-import {message, Spin} from "antd";
-import {deleteLesson, getLessonsByDate} from "@/app/api/fetchLessons";
+import {message} from "antd";
+import {getLessonsByDate} from "@/app/api/fetchLessons";
 import Loading from "@/app/components/Loading";
-import {DeleteTwoTone} from "@ant-design/icons";
 import OneLesson from "@/app/schedule/lessons/OneLesson";
 import {DayBlock} from "@/app/schedule/lessons/DayBlock";
 

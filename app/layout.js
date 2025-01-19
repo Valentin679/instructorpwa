@@ -2,10 +2,7 @@
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Nav from "@/app/components/Nav/nav";
-import StudentsContext, {StudentsProvider, useStudents, useStudentsDispatch} from "@/app/context/StudentsContext";
-import {useEffect, useMemo, useState} from "react";
-import {getActiveStudents} from "@/app/api/fetchStudents";
-import FetchStudents from "@/app/components/FetchStudents";
+import {StudentsProvider} from "@/app/context/StudentsContext";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -23,16 +20,6 @@ const geistMono = Geist_Mono({
 // };
 
 export default function RootLayout({children}) {
-    const [students, setStudents] = useState([])
-    const contextStudentValue = useMemo(() => ({students, setStudents}), [students]);
-
-    // useEffect(() => {
-    //     getActiveStudents().then((res) => {
-    //         setStudents(res)
-    //         console.log('req')
-    //
-    //     })
-    // }, []);
     return (
         <html lang="en">
         <head>
@@ -46,10 +33,8 @@ export default function RootLayout({children}) {
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased vh-100`}>
         <div className={'h-100 overflow-hidden'}>
-            <StudentsProvider value={contextStudentValue}>
-                {/*<FetchStudents>*/}
+            <StudentsProvider>
                     {children}
-                {/*</FetchStudents>*/}
             </StudentsProvider>
         </div>
         <Nav/>

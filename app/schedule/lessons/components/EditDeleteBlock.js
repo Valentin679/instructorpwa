@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Button, message, Space, Spin} from 'antd';
 import {DeleteTwoTone, EditTwoTone} from "@ant-design/icons";
 import {deleteLesson} from "@/app/api/fetchLessons";
-import {changeCountLesson} from "@/app/api/fetchStudents";
 import styles from './../lessons.module.css'
+import {changeCountLesson} from "@/app/api/fetchOneStudent";
 
 export default function EditDeleteBlock ({studentId, lessonId, quantityPracticalLessons, moreActions, success, update, setUpdate}) {
     return (

@@ -11,7 +11,6 @@ export default function fetchStudents ({children}) {
             dispatch({type: 'fetch', payload: res})
         })
     }, []);
-    console.log(stu)
   return (
       <>
           {children}

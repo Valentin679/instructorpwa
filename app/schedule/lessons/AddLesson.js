@@ -3,7 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {Button, Radio, DatePicker, Modal, TimePicker, Select} from 'antd';
 import dayjs from 'dayjs';
 import {addLesson} from "@/app/api/fetchLessons";
-import {changeCountLesson, getActiveStudents} from "@/app/api/fetchStudents";
+import { getActiveStudents} from "@/app/api/fetchStudents";
+import {changeCountLesson} from "@/app/api/fetchOneStudent";
 
 
 export default function AddLesson({setUpdate, update, success}) {

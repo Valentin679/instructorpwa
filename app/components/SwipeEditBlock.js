@@ -1,8 +1,8 @@
 import React, {useEffect, useState, createContext} from 'react';
 import DifferenceContext from "@/app/context/DifferenceContext";
 import {RiDeleteBin2Line} from "react-icons/ri";
-import {deleteStudent} from "@/app/api/fetchStudents";
 import {useRouter} from "next/navigation";
+import {deleteStudent} from "@/app/api/fetchOneStudent";
 
 
 export default function SwipeEditBlock({children, ref, studetntId}) {

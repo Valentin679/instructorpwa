@@ -90,7 +90,8 @@ export default function Students() {
             })
         }
     }, [activeStudents, activeFilter, students]);
-    console.log(students)
+
+    // console.log(students)
 
     const studentsList = viewStudents.map(student => (
         <StudentsListItem key={student._id} student={student}/>

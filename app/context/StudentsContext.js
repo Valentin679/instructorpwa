@@ -10,13 +10,6 @@ export function StudentsProvider({children}) {
         studentsReducer,
         initialStudents
     );
-    // useEffect(() => {
-    //     getActiveStudents().then((res) => {
-    //         dispatch({type: 'fetch', payload: res})
-    //         console.log('req')
-    //         console.log(students)
-    //     })
-    // }, []);
     return (
         <StudentsContext.Provider value={students}>
             <StudentsDispatchContext.Provider value={dispatch}>
@@ -33,8 +26,18 @@ let initialStudents
 function studentsReducer(students, action) {
     switch (action.type) {
         case 'fetch': {
-            console.log(action)
+            // console.log(action)
             return action.payload;
+        }
+        case 'changeExamDates': {
+            // console.log(action)
+            return students.map((s) => {
+                if (s._id === action.student._id) {
+                    return action.student
+                } else {
+                    return s;
+                }
+            });
         }
         case 'changed': {
             return students.map((t) => {

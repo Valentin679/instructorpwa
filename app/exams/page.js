@@ -10,13 +10,10 @@ import StudentsContext, {useStudents} from "@/app/context/StudentsContext";
 
 export default function Home() {
     const [exams, setExams] = useState([])
-    const students = useStudents()
     const router = useRouter()
     useEffect(() => {
         getExams().then(res => setExams(res))
     }, []);
-    console.log(students)
-// console.log(exams)
     return (
         <div className={'d-flex flex-col gap-3'}>
             <div style={{minHeight: '100%'}}>Экзамены</div>
@@ -28,10 +25,6 @@ export default function Home() {
             <Button className={'mx-auto'} type={'primary'} onClick={() => {
                 router.push('/exams/add-exam')
             }}><UserAddOutlined/>Запланировать экзамен</Button>
-            {/*<Button onClick={()=>{*/}
-            {/*    students[1].exams[0].result = false*/}
-            {/*    console.log(students)*/}
-            {/*}}>ffff</Button>*/}
 
         </div>
 
