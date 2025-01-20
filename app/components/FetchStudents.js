@@ -4,12 +4,11 @@ import {getActiveStudents} from "@/app/api/fetchStudents";
 
 export default function fetchStudents ({children}) {
     const dispatch = useStudentsDispatch()
-    const stu = useStudents()
 
     useEffect(() => {
         getActiveStudents().then((res)=>{
             dispatch({type: 'fetch', payload: res})
-        })
+        }).catch((e)=>{console.log(e)})
     }, []);
   return (
       <>

@@ -1,5 +1,4 @@
 import {createContext, useContext, useEffect, useReducer} from "react";
-import {getActiveStudents} from "@/app/api/fetchStudents";
 import FetchStudents from "@/app/components/FetchStudents";
 export const StudentsContext = createContext([])
 export const StudentsDispatchContext = createContext([])
