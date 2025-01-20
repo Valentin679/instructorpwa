@@ -33,7 +33,7 @@ export default function Exam() {
         getExamById(examId).then((res) => {
             // console.log(res)
             setExam(res)
-            // setPassed(beforeOfAfterDate(res.date))
+            setPassed(beforeOfAfterDate(res.date))
         })
     }
 
@@ -50,7 +50,7 @@ export default function Exam() {
             student: newStudent
         })
         editExamsOneStudent(inputSelected, students[index].exams).then((res) => { //фетч запрос на изменение в бд, отправляется весь раздел экзамена для студента
-            console.log('Добавлено в БД')
+            // console.log('Добавлено в БД')
         })
         handleChange({value: 0, label: 'Не выбрано'})
     }
@@ -78,7 +78,7 @@ export default function Exam() {
                 <div className={'px-1'}>
                     <h6>Инспектор: {exam.inspector}</h6>
                 </div>
-                {!passed ?
+                {/*{!passed ?*/}
                 <div className={'d-flex flex-row gap-2'}>
                     <Select
                         defaultValue={inputSelected}
@@ -93,8 +93,9 @@ export default function Exam() {
                     <Button onClick={() => {
                         addStudentForExamDispatch()
                     }}>Добавить</Button>
-                </div> : ''
-                }
+                </div>
+                {/*: ''*/}
+                {/*}*/}
                 <div >
                     <h6 className={'px-1 text-center'}>Список кандидатов</h6>
                     <ExamStudentList exam={exam} passed={passed} setInputSelected={setInputSelected}/>

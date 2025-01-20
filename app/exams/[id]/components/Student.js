@@ -57,7 +57,7 @@ export default function Student({studentData, index, examDate, passed}) {
                 </div>
                 {goodExamResult ? '' :
                     <div className={'d-flex flex-row'}>
-                        {passed ?
+                        {/*{passed ?*/}
                             <div
                                 className={'d-flex items-center justify-center bg-green-700 h-100 border-right border-secondary text-center px-2 text-white '}
                                 onClick={() => {
@@ -67,7 +67,7 @@ export default function Student({studentData, index, examDate, passed}) {
                                 Сдал
                             </div>
 
-                            :
+                            {/*:*/}
                             <div
                                 className={'d-flex items-center justify-center bg-red-700 h-100 border-right border-secondary px-1 text-white '}
                                 onClick={() => {
@@ -75,7 +75,7 @@ export default function Student({studentData, index, examDate, passed}) {
                                 }}
                             >Отмена
                             </div>
-                        }
+                        {/*}*/}
                     </div>
                 }
             </div>
