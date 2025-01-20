@@ -12,7 +12,9 @@ export default function Home() {
     const [exams, setExams] = useState([])
     const router = useRouter()
     useEffect(() => {
-        getExams().then(res => setExams(res))
+        getExams().then(res => setExams(res)).catch(e => {
+            console.log(e);
+        });
 
     }, []);
     console.log(exams)

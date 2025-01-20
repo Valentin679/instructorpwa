@@ -23,7 +23,6 @@ export default function ExamStudentList({exam, passed}) {
                 // console.log(index)
                 return <Student key={student._id} index={index}
                                 examDate={exam.date}
-                                studentData={student}
                                 passed={passed}
                 ></Student>
             }

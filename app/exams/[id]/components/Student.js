@@ -1,14 +1,14 @@
 'use client'
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Loading from "@/app/components/Loading";
 import {useStudents, useStudentsDispatch} from "@/app/context/StudentsContext";
 import {editExamsOneStudent} from "@/app/api/fetchOneStudent";
 
-export default function Student({studentData, index, examDate, passed}) {
-    const [student, setStudent] = useState(studentData)
+export default function Student({index, examDate, passed}) {
+    const [student, setStudent] = useState([])
     const students = useStudents()
     const dispatch = useStudentsDispatch()
-    const [goodExamResult, setGoodExamResult] = useState(students[index].exams[1].result)
+    const [goodExamResult, setGoodExamResult] = useState(false)
     const refContainer = useRef();
     const refBlock = useRef();
 
@@ -42,6 +42,11 @@ export default function Student({studentData, index, examDate, passed}) {
         })
     }
 
+    useEffect(() => {
+        setStudent(students[index])
+        setGoodExamResult(students[index].exams[1].result)
+    }, [student]);
+
     if (!student) {
         return <Loading/>
     } else {
@@ -55,7 +60,7 @@ export default function Student({studentData, index, examDate, passed}) {
                     </p>
 
                 </div>
-                {/*{goodExamResult ? '' :*/}
+                {goodExamResult ? '' :
                     <div className={'d-flex flex-row'}>
                         {passed ?
                             <div
@@ -77,7 +82,7 @@ export default function Student({studentData, index, examDate, passed}) {
                             </div>
                         }
                     </div>
-                {/*}*/}
+                }
             </div>
         );
     }
