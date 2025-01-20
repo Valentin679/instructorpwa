@@ -73,7 +73,7 @@ export default function Exam() {
         return (
             <div className={'d-flex flex-col h-100 gap-3'}>
                 <div className={'mt-1 '}>
-                    <h5 className={'text-center'}>{dayjs(exam.date, 'DD/MM/YYYY').format('DD MMMM YYYY')}</h5>
+                    {/*<h5 className={'text-center'}>{dayjs(exam.date, 'DD/MM/YYYY').format('DD MMMM YYYY')}</h5>*/}
                 </div>
                 <div className={'px-1'}>
                     <h6>Инспектор: {exam.inspector}</h6>
