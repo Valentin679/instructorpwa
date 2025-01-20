@@ -25,15 +25,14 @@ export default function Home() {
         if (id === 1) {setIsAuthorize(true)}
     }
     // console.log(isAuthorize)
-    // useEffect(() => {
-    //     checkId()
-    // }, [userId]);
+    useEffect(() => {
+        checkId()
+    }, [userId]);
   return (
       <div className={'h-100 d-flex flex-column gap-2 '}>
-        {/*  {!isAuthorize ?*/}
-        {/*      <AuthorizeForm setUserId={setUserId}/> :*/}
-        {/*<Profile/>}*/}
-          <p>s</p>
+          {!isAuthorize ?
+              <AuthorizeForm setUserId={setUserId}/> :
+        <Profile/>}
       </div>
 
   );
