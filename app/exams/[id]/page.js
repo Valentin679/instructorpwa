@@ -33,6 +33,7 @@ export default function Exam() {
         getExamById(examId).then((res) => {
             // console.log(res)
             setExam(res)
+            // setPassed(beforeOfAfterDate(res.date))
         })
     }
 
@@ -49,7 +50,7 @@ export default function Exam() {
             student: newStudent
         })
         editExamsOneStudent(inputSelected, students[index].exams).then((res) => { //фетч запрос на изменение в бд, отправляется весь раздел экзамена для студента
-            // console.log('Добавлено в БД')
+            console.log('Добавлено в БД')
         })
         handleChange({value: 0, label: 'Не выбрано'})
     }
@@ -59,8 +60,7 @@ export default function Exam() {
         if (exam) {
             findRecorded(students, exam.date, setRecordedStudents)
             filterExamWindow(students, exam.date)
-            console.log(exam.date)
-            setPassed(beforeOfAfterDate(exam.date))
+
             // console.log('tyt')
         }
 

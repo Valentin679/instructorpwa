@@ -13,7 +13,9 @@ export default function Home() {
     const router = useRouter()
     useEffect(() => {
         getExams().then(res => setExams(res))
+
     }, []);
+    console.log(exams)
     return (
         <div className={'d-flex flex-col gap-3'}>
             <div style={{minHeight: '100%'}}>Экзамены</div>
