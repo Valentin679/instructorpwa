@@ -13,16 +13,16 @@ import {editExamsOneStudent} from "@/app/api/fetchOneStudent";
 import ExamStudentList from "@/app/exams/[id]/components/ExamStudentList";
 import {beforeOfAfterDate} from "@/app/functions/beforeOfAfterDate";
 import dayjs from "dayjs";
-
-
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 export default function Exam() {
     const pathname = usePathname()
     const id = pathname.replace(/^.{7}/, '')
     const [exam, setExam] = useState([])
     const [examId, setExamId] = useState(id);
-    const [passed, setPassed] = useState(null)
     const [examDate, setExamDate] = useState(null)
+    const [passed, setPassed] = useState(null)
     const students = useStudents()
     const dispatch = useStudentsDispatch()
     const [studentListForSelect, setStudentListForSelect] = useState([])
@@ -31,10 +31,9 @@ export default function Exam() {
 
     function fetchExam() {
         getExamById(examId).then((res) => {
-            console.log(res)
             setExam(res)
             setPassed(beforeOfAfterDate(res.date))
-            setExamDate(dayjs(exam.date, 'DD/MM/YYYY').format('DD MMMM YYYY'))
+            setExamDate(dayjs(res.date, 'DD/MM/YYYY').format('DD MMMM YYYY'))
         })
     }
 
