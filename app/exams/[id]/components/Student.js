@@ -55,7 +55,7 @@ export default function Student({studentData, index, examDate, passed}) {
                     </p>
 
                 </div>
-                {goodExamResult ? '' :
+                {/*{goodExamResult ? '' :*/}
                     <div className={'d-flex flex-row'}>
                         {passed ?
                             <div
@@ -77,7 +77,7 @@ export default function Student({studentData, index, examDate, passed}) {
                             </div>
                         }
                     </div>
-                }
+                {/*}*/}
             </div>
         );
     }

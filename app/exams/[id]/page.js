@@ -19,9 +19,9 @@ import dayjs from "dayjs";
 export default function Exam() {
     const pathname = usePathname()
     const id = pathname.replace(/^.{7}/, '')
-    const [exam, setExam] = useState()
+    const [exam, setExam] = useState([])
     const [examId, setExamId] = useState(id);
-    const [passed, setPassed] = useState(false)
+    const [passed, setPassed] = useState(null)
     const students = useStudents()
     const dispatch = useStudentsDispatch()
     const [studentListForSelect, setStudentListForSelect] = useState([])
@@ -30,7 +30,7 @@ export default function Exam() {
 
     function fetchExam() {
         getExamById(examId).then((res) => {
-            // console.log(res)
+            console.log(res)
             setExam(res)
             setPassed(beforeOfAfterDate(res.date))
         })
@@ -54,9 +54,8 @@ export default function Exam() {
         handleChange({value: 0, label: 'Не выбрано'})
     }
     useEffect(() => {
-
         // console.log('render')
-        if (exam) {
+        if (exam.length !== 0 && students !== undefined) {
             findRecorded(students, exam.date, setRecordedStudents)
             filterExamWindow(students, exam.date)
             // console.log('tyt')
@@ -68,7 +67,7 @@ export default function Exam() {
     }, [examId, students]);
 // debugger
 
-    if (!exam) {
+    if (exam.length === 0 && passed === null && students === undefined) {
         return <Loading/>
     } else {
         return (
