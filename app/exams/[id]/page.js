@@ -9,7 +9,6 @@ import {useStudents, useStudentsDispatch} from "@/app/context/StudentsContext";
 import {mutateArrayForSelectStudents} from "@/app/functions/mutateArrayForSelectStudents";
 import {findRecorded} from "@/app/exams/functions/findRecordedStudentsOnExam";
 import {findIndexById} from "@/app/functions/findIndexById";
-import ExamList from "@/app/exams/[id]/components/ExamStudentList";
 import {editExamsOneStudent} from "@/app/api/fetchOneStudent";
 import ExamStudentList from "@/app/exams/[id]/components/ExamStudentList";
 import {beforeOfAfterDate} from "@/app/functions/beforeOfAfterDate";
@@ -22,7 +21,7 @@ export default function Exam() {
     const id = pathname.replace(/^.{7}/, '')
     const [exam, setExam] = useState()
     const [examId, setExamId] = useState(id);
-    const [passed, setPassed] = useState()
+    const [passed, setPassed] = useState(false)
     const students = useStudents()
     const dispatch = useStudentsDispatch()
     const [studentListForSelect, setStudentListForSelect] = useState([])
@@ -55,17 +54,19 @@ export default function Exam() {
         handleChange({value: 0, label: 'Не выбрано'})
     }
     useEffect(() => {
-        fetchExam()
+
         // console.log('render')
         if (exam) {
             findRecorded(students, exam.date, setRecordedStudents)
             filterExamWindow(students, exam.date)
-
             // console.log('tyt')
+        }
+        else {
+            fetchExam()
         }
 
     }, [examId, students]);
-
+// debugger
 
     if (!exam) {
         return <Loading/>
@@ -78,7 +79,7 @@ export default function Exam() {
                 <div className={'px-1'}>
                     <h6>Инспектор: {exam.inspector}</h6>
                 </div>
-                {/*{!passed ?*/}
+                {!passed ?
                 <div className={'d-flex flex-row gap-2'}>
                     <Select
                         defaultValue={inputSelected}
@@ -94,8 +95,8 @@ export default function Exam() {
                         addStudentForExamDispatch()
                     }}>Добавить</Button>
                 </div>
-                {/*: ''*/}
-                {/*}*/}
+                : ''
+                }
                 <div >
                     <h6 className={'px-1 text-center'}>Список кандидатов</h6>
                     <ExamStudentList exam={exam} passed={passed} setInputSelected={setInputSelected}/>
