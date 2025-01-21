@@ -8,7 +8,7 @@ export default function Nav() {
     return (
         <nav className="navbar sticky-bottom bg-body-tertiary p-2">
             <div className="container-fluid d-flex flex-nowrap flex-row justify-content-between">
-                <NavItem label={'Профиль'} icon={<ImProfile />} link={'/'}/>
+                <NavItem label={'Профиль'} icon={<ImProfile />} link={'/profile'}/>
                 <NavItem label={'Ученики'} icon={<BsFillPeopleFill />} link={'/students'}/>
                 <NavItem label={'Расписание'} icon={<FaTableList />} link={'/schedule'}/>
                 <NavItem label={'Экзамены'} icon={<SiLibreofficewriter />} link={'/exams'}/>

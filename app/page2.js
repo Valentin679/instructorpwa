@@ -1,9 +1,6 @@
 'use client'
-import Profile from "@/app/profile/Profile";
 import {useEffect, useState} from "react";
 import AuthorizeForm from "@/app/components/AuthorizeForm";
-import {useStudents, useStudentsDispatch} from "@/app/context/StudentsContext";
-import {getActiveStudents} from "@/app/api/fetchStudents";
 
 export default function Home() {
     const [isAuthorize, setIsAuthorize] = useState(false)
@@ -31,8 +28,10 @@ export default function Home() {
   return (
       <div className={'h-100 d-flex flex-column gap-2 '}>
           {!isAuthorize ?
-              <AuthorizeForm setUserId={setUserId}/> :
-        <Profile/>}
+              <AuthorizeForm setUserId={setUserId}/>
+              : ""
+        // <Page/>
+          }
       </div>
 
   );

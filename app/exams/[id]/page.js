@@ -33,8 +33,14 @@ export default function Exam() {
         getExamById(examId).then((res) => {
             setExam(res)
             setPassed(ifAfterOfDate(res.date))
-            setExamDate(dayjs(res.date, 'DD/MM/YYYY').format('DD MMMM YYYY'))
+
         })
+    }
+
+    function getFullDate(date) {
+        const res = dayjs(date, 'DD/MM/YYYY').format('DD MMMM YYYY')
+        console.log(res)
+        setExamDate(res)
     }
 
     const handleChange = (value) => {
@@ -58,16 +64,18 @@ export default function Exam() {
         if (exam.length !== 0 && students !== undefined) {
             findRecorded(students, exam.date, setRecordedStudents)
             filterExamWindow(students, exam.date)
+            getFullDate(exam.date)
         }
         else {
             fetchExam()
         }
 
-    }, [examId, students]);
+    }, [examId, students, examDate]);
 
     if (exam.length === 0 && passed === null && students === undefined && examDate === null) {
         return <Loading/>
     } else {
+        console.log(examDate)
         return (
             <div className={'d-flex flex-col h-100 gap-3'}>
                 <div className={'mt-1 '}>

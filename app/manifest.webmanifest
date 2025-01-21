@@ -5,7 +5,7 @@
   "icons": [
 
   ],
-  "start_url": "https://instructorpwa.vercel.app/",
+  "start_url": "https://instructorpwa.vercel.app/profile",
   "display": "standalone",
   "theme_color": "#be0202",
   "background_color": "#be0202"
