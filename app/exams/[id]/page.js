@@ -55,26 +55,23 @@ export default function Exam() {
         handleChange({value: 0, label: 'Не выбрано'})
     }
     useEffect(() => {
-        // console.log('render')
         if (exam.length !== 0 && students !== undefined) {
             findRecorded(students, exam.date, setRecordedStudents)
             filterExamWindow(students, exam.date)
-            // console.log('tyt')
         }
         else {
             fetchExam()
         }
 
     }, [examId, students]);
-// debugger
 
-    if (exam.length === 0 && passed === null && students === undefined) {
+    if (exam.length === 0 && passed === null && students === undefined ?? examDate !== null) {
         return <Loading/>
     } else {
         return (
             <div className={'d-flex flex-col h-100 gap-3'}>
                 <div className={'mt-1 '}>
-                    <h5 className={'text-center'}>{examDate !== null ? examDate : 'net'}</h5>
+                    <h5 className={'text-center'}>{examDate}</h5>
                 </div>
                 <div className={'px-1'}>
                     <h6>Инспектор: {exam.inspector}</h6>
