@@ -73,3 +73,14 @@ export const editExamsOneStudent = async (id, body) => {
         }
     })
 }
+
+export const changeActiveOneStudent = async (id, body) => {
+    await fetch(`${instance.url}api/students/category/b/active/` + id , {
+        method: 'PUT',
+        //
+        body: JSON.stringify(body),
+        headers: {
+            'Content-type': 'application/json; charset=utf-8'
+        }
+    })
+}

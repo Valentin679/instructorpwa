@@ -3,6 +3,7 @@ import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Nav from "@/app/components/Nav/nav";
 import {StudentsProvider} from "@/app/context/StudentsContext";
+import {MessagesProvider} from "@/app/context/MessagesContext";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -34,7 +35,9 @@ export default function RootLayout({children}) {
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased vh-100`}>
         <div className={'h-100 overflow-hidden'}>
             <StudentsProvider>
+                <MessagesProvider>
                     {children}
+                </MessagesProvider>
             </StudentsProvider>
         </div>
         <Nav/>

@@ -1,13 +1,11 @@
 import {useStudents} from "@/app/context/StudentsContext";
 import Student from "@/app/exams/[id]/components/Student";
-import {beforeOfAfterDate} from "@/app/functions/beforeOfAfterDate";
-import {useState} from "react";
 
 export default function ExamStudentList({exam, passed}) {
     const students = useStudents()
 
     let list
-    if (students?.length !== 0 && students !== undefined) {
+    if (students !== undefined ) {
 
         list = students.map((student, index) => {
             let confirm
@@ -22,6 +20,7 @@ export default function ExamStudentList({exam, passed}) {
             if (confirm) {
                 // console.log(index)
                 return <Student key={student._id} index={index}
+                                studentData={student}
                                 examDate={exam.date}
                                 passed={passed}
                 ></Student>

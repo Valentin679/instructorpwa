@@ -4,8 +4,8 @@ import Loading from "@/app/components/Loading";
 import {useStudents, useStudentsDispatch} from "@/app/context/StudentsContext";
 import {editExamsOneStudent} from "@/app/api/fetchOneStudent";
 
-export default function Student({index, examDate, passed}) {
-    const [student, setStudent] = useState([])
+export default function Student({studentData, index, examDate, passed}) {
+    const [student, setStudent] = useState(studentData)
     const students = useStudents()
     const dispatch = useStudentsDispatch()
     const [goodExamResult, setGoodExamResult] = useState(false)
@@ -13,7 +13,7 @@ export default function Student({index, examDate, passed}) {
     const refBlock = useRef();
 
     function goodExam() {
-        let currentStudent = students[index]
+        let currentStudent = studentData
         currentStudent.exams[1].result = true
         dispatch({
             type: 'changeExamDates',
@@ -43,8 +43,8 @@ export default function Student({index, examDate, passed}) {
     }
 
     useEffect(() => {
-        setStudent(students[index])
-        setGoodExamResult(students[index].exams[1].result)
+        setStudent(studentData)
+        setGoodExamResult(studentData.exams[1].result)
     }, [student]);
 
     if (!student) {

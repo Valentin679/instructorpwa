@@ -33,7 +33,7 @@ export const addExam = async (data) => {
         return await response.json()
     }
 }
-export const deleteExam = async (id) => {
+export const deleteExamById = async (id) => {
     await fetch(`${instance.url}api/exams/b/` + id, {
         method: 'DELETE',
         headers: {

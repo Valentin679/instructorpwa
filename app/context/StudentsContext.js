@@ -25,7 +25,6 @@ let initialStudents
 function studentsReducer(students, action) {
     switch (action.type) {
         case 'fetch': {
-            // console.log(action)
             return action.payload;
         }
         case 'changeExamDates': {
@@ -39,11 +38,11 @@ function studentsReducer(students, action) {
             });
         }
         case 'changed': {
-            return students.map((t) => {
-                if (t.id === action.students.id) {
-                    return action.students;
+            return students.map((s) => {
+                if (s._id === action.student._id) {
+                    return action.student
                 } else {
-                    return t;
+                    return s;
                 }
             });
         }

@@ -39,7 +39,7 @@ export const filterExamWindow = (students, date, recorded) => {
             }
         } else if (student.exams[1].dates.length >= 3) {
             const lastExamDate = dayjs(student.exams[1].dates.at(-1), 'DD/MM/YYYY')
-            if (nowDate.diff(lastExamDate, 'day') > 30) {
+            if (nowDate.diff(lastExamDate, 'day') > 180) {
                 return student
             } else {
                 return null

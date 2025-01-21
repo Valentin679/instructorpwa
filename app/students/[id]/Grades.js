@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {editStudentGrades} from "@/app/api/fetchStudents";
 import {Select} from "antd";
 import {TfiSave} from "react-icons/tfi";
+import {editStudentGrades} from "@/app/api/fetchOneStudent";
 
 const selectList = [
     { value: 5, label: 'Полностью освоен' },

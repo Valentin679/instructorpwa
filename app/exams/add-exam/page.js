@@ -9,11 +9,13 @@ import {filterExamWindow} from "@/app/exams/functions/filterExamWindow";
 import StudentListOnExam from "@/app/exams/add-exam/StudentListOnExam";
 
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import {mutateArrayForSelectStudents} from "@/app/functions/mutateArrayForSelectStudents";
+import {useStudents} from "@/app/context/StudentsContext";
 
 dayjs.extend(customParseFormat);
 export default function AddExam() {
     const router = useRouter()
-
+    const students = useStudents()
     const [fetchingStudents, setFetchingStudents] = useState(false)
     const [date, setDate] = useState([])
     const [studentListForSelect, setStudentListForSelect] = useState()
@@ -21,19 +23,16 @@ export default function AddExam() {
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([])
 
-    const fetchStudentsForSelect = () => {
-        getActiveStudents().then((res) => {
-            const filteredByDate = filterExamWindow(res, date)
-            setStudentsList(filteredByDate)
-            const studentsArr = filteredByDate.map(student => {
-                return {
-                    value: student._id,
-                    label: student.lastName + ' ' + student.firstName[0] + '. ' + student.surname[0] + '.'
-                }
-            })
-            setStudentListForSelect(studentsArr)
-        })
+
+    function fetchStudentsForSelect() {
+        if (students !== undefined) {
+
+            mutateArrayForSelectStudents(students.active, date, [], setStudentListForSelect)
+        }
     }
+
+
+
     const onChangeDate = (date, dateString) => {
         setDate(dateString)
     }

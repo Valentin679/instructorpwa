@@ -6,29 +6,39 @@ import {useContext, useEffect, useState} from "react";
 import {getExams} from "@/app/api/fetchExams";
 import Link from "next/link";
 import ExamsItem from "@/app/exams/components/ExamsItem";
-import StudentsContext, {useStudents} from "@/app/context/StudentsContext";
+import {useMessageSuccess} from "@/app/context/MessagesContext";
 
 export default function Home() {
     const [exams, setExams] = useState([])
     const router = useRouter()
+    const success = useMessageSuccess()
     useEffect(() => {
         getExams().then(res => setExams(res)).catch(e => {
             console.log(e);
         });
 
     }, []);
-    console.log(exams)
+    // console.log(exams)
+
+
+
     return (
         <div className={'d-flex flex-col gap-3'}>
             <div style={{minHeight: '100%'}}>Экзамены</div>
 
             <div>{exams.map(exam => {
-                return <Link key={exam._id} href={`/exams/${exam._id}`}><ExamsItem key={exam._id} exam={exam}/></Link>
+                return <ExamsItem key={exam._id} exam={exam}/>
             })}</div>
 
             <Button className={'mx-auto'} type={'primary'} onClick={() => {
                 router.push('/exams/add-exam')
             }}><UserAddOutlined/>Запланировать экзамен</Button>
+            <Button className={'mx-auto'} type={'primary'} onClick={() => {
+                success('gooooooooooood')
+            }}>
+
+            </Button>
+
 
         </div>
 

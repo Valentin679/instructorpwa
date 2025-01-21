@@ -11,7 +11,7 @@ import {findRecorded} from "@/app/exams/functions/findRecordedStudentsOnExam";
 import {findIndexById} from "@/app/functions/findIndexById";
 import {editExamsOneStudent} from "@/app/api/fetchOneStudent";
 import ExamStudentList from "@/app/exams/[id]/components/ExamStudentList";
-import {beforeOfAfterDate} from "@/app/functions/beforeOfAfterDate";
+import {ifAfterOfDate} from "@/app/functions/beforeOfAfterDate";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
@@ -32,7 +32,7 @@ export default function Exam() {
     function fetchExam() {
         getExamById(examId).then((res) => {
             setExam(res)
-            setPassed(beforeOfAfterDate(res.date))
+            setPassed(ifAfterOfDate(res.date))
             setExamDate(dayjs(res.date, 'DD/MM/YYYY').format('DD MMMM YYYY'))
         })
     }
