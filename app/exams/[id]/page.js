@@ -65,7 +65,7 @@ export default function Exam() {
 
     }, [examId, students]);
 
-    if (exam.length === 0 && passed === null && students === undefined ?? examDate !== null) {
+    if (exam.length === 0 && passed === null && students === undefined && examDate !== null) {
         return <Loading/>
     } else {
         return (
