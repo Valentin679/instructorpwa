@@ -24,10 +24,10 @@ export default function ExamsBlock({exams}) {
     const theoryExam = () => {
         if (theory.result) {
             return <Tooltip title={theory.date} color={'green'}>
-                <GoodTag point={'Т'}/>
+                <GoodTag point={'Т'} date={theory.date}/>
             </Tooltip>
         } else {
-            return <StartTag point={'Т'}/>
+            return <StartTag point={'Т'} date={theory.date}/>
         }
     }
     const driveExam = () => {
@@ -35,36 +35,57 @@ export default function ExamsBlock({exams}) {
             return
         }
         if (driveExamsCount === 1 && drive.result === false) {
-            if(dayjs().isBefore(drive.dates[1])){
-                return <StartTag point={'В'}/>
+            if(dayjs().isBefore(drive.dates[0])){
+                return <StartTag point={'В'} date={drive.dates[0]}/>
             }else {
-            return <BadTag point={'В'}/>
+            return <BadTag point={'В'} date={drive.dates[0]}/>
             }
         }
         if (driveExamsCount === 1 && drive.result === true) {
-            return <GoodTag point={'В'}/>
+            return <GoodTag point={'В'} date={drive.dates[0]}/>
         }
         if (driveExamsCount === 2 && drive.result === false) {
             if(dayjs().isBefore(drive.dates[1])){
-                return <><BadTag point={'В'}/><BadTag point={'В'}/></>
+                return <>
+                    <BadTag point={'В'} date={drive.dates[0]}/>
+                    <BadTag point={'В'} date={drive.dates[1]}/>
+                </>
 
             }else {
-                return <><BadTag point={'В'}/><StartTag point={'В'}/></>
+                return <>
+                    <BadTag point={'В'} date={drive.dates[0]}/>
+                    <StartTag point={'В'} date={drive.dates[1]}/>
+                </>
             }
         }
         if (driveExamsCount === 2 && drive.result === true) {
-            return <><BadTag point={'В'}/><GoodTag point={'В'}/></>
+            return <>
+                <BadTag point={'В'} date={drive.dates[0]}/>
+                <GoodTag point={'В'} date={drive.dates[1]}/>
+             </>
         }
         if (driveExamsCount === 3 && drive.result === false) {
             let examDate = dayjs(drive.dates[2], 'DD/MM/YYYY')
             if(dayjs().isAfter(examDate)){
-                return <><BadTag point={'В'}/><BadTag point={'В'}/><BadTag point={'В'}/></>
+                return <>
+                    <BadTag point={'В'} date={drive.dates[0]}/>
+                    <BadTag point={'В'} date={drive.dates[1]}/>
+                    <BadTag point={'В'} date={drive.dates[2]}/>
+                </>
             }else {
-                return <><BadTag point={'В'}/><BadTag point={'В'}/><StartTag point={'В'}/></>
+                return <>
+                    <BadTag point={'В'} date={drive.dates[0]}/>
+                    <BadTag point={'В'} date={drive.dates[1]}/>
+                    <StartTag point={'В'} date={drive.dates[2]}/>
+                </>
             }
         }
         if (driveExamsCount === 3 && drive.result === true) {
-            return <><BadTag point={'В'}/><BadTag point={'В'}/><GoodTag point={'В'}/></>
+            return <>
+                <BadTag point={'В'} date={drive.dates[0]}/>
+                <BadTag point={'В'} date={drive.dates[1]}/>
+                <GoodTag point={'В'} date={drive.dates[2]}/>
+            </>
         }
     }
 

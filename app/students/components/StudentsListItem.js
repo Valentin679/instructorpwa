@@ -9,28 +9,22 @@ import React, {useRef, } from "react";
 import SwipeEditBlock from "@/app/components/SwipeEditBlock";
 
 export default function StudentsListItem({student}) {
-    const ref = useRef();
     return (
-            <SwipeEditBlock ref={ref} studetntId={student._id}>
-
+        <div className={'p-2'}>
+            <div className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1 '}>
                     <Link href={`/students/${student._id}`}
-                          className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1 '}>
-                        <div className={'d-flex flex-row align-items-center gap-2'}>
+                          className={'d-flex flex-row align-items-center gap-2'}>
                             <GroupTag group={student.group}/>
                             <StudentNameBlock lastName={student.lastName} firstName={student.firstName}
                                               surname={student.surname}/>
-                        </div>
-                        <ExamsBlock exams={student.exams}/>
-
-
                     </Link>
+                        <ExamsBlock exams={student.exams}/>
+            </div>
                     <div className={'d-flex flex-row justify-content-between align-items-center w-100 gap-1'}>
                         <ExerBlock exercise={student.exercise}/>
                         <QuantityLessonsBlock quantity={student.quantityPracticalLessons}/>
                     </div>
-
-
-            </SwipeEditBlock>
+        </div>
     );
 
 }
